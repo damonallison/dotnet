@@ -1,5 +1,8 @@
 {
   "version": "1.0.0-*",
+
+  // The unit 
+  "testRunner": "xunit",
   "buildOptions": {
     "emitEntryPoint": true
   },

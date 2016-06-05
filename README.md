@@ -4,7 +4,8 @@ The .NET landscape is drastically changing (for the better). This repo contains 
 
 ## TODO
 
- 
+* [xUnit](https://xunit.github.io/)
+* TPL
 
 ## Common Themes
 
@@ -31,6 +32,8 @@ Common themes underlying the new .NET directions.
 * Git based, EOL default is `\n`. Unix wins. 
 
 * Inline reference information (metadata) is awesome. (Find dead code). See `editor.referenceInfos` setting.
+
+* Visual Studio Code was written with node.js, which is reflected in the documentation. There is a lot of javascript / node examples in the docs.
 
 #### Helpful Shortcut Keys
 

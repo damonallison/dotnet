@@ -2,11 +2,15 @@
     "version": "0.1.0",
     "command": "dotnet",
     "isShellCommand": true,
+    
     "args": [],
     "tasks": [
         {
+            "echoCommand": true,
             "taskName": "build",
             "args": [],
+
+            // When set to 'true', Cmd-Shift-B will trigger this task.
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         }

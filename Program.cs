@@ -1,15 +1,19 @@
 ﻿using System;
 
-namespace ConsoleApplication
+namespace Dotnet
 {
+    /// <summary>
+    /// Main entry point into the application.
+    /// <seealso cref="Calculator"/>
+    /// </summary>
     public class Program
     {
         public static void Main(string[] args)
         {
             var t = new Types();
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Damon was here");
-            Console.WriteLine("Damon was here again");
+            var c = new Calculator();
+
+            Console.WriteLine($"Hello World : {t}");
         }
     }
 }
