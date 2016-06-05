@@ -46,4 +46,3 @@ Common themes underlying the new .NET directions.
 * Shift-F12 : Find all references.
 * Opt-F12 : Peek definition.
 * Cmd-Shift-M : Toggle Warnings / Errors
-
