@@ -2,11 +2,14 @@
 
 The .NET landscape is drastically changing (for the better). This repo contains research into the "new .NET" - .NET core, Visual Studio Code, and anything .NET "vNext".
 
+## TODO
+
+ 
 
 ## Common Themes
 
 Common themes underlying the new .NET directions.
-
+˘
 * All OSS. Everything is developed in the open, on Github. Including Visual Studio Code.
 
 * Modularization.
@@ -25,6 +28,8 @@ Common themes underlying the new .NET directions.
 
 * Electron based. Minimal core + extensions (Atom).
 
+* Git based, EOL default is `\n`. Unix wins. 
+
 * Inline reference information (metadata) is awesome. (Find dead code). See `editor.referenceInfos` setting.
 
 #### Helpful Shortcut Keys
@@ -41,8 +46,12 @@ Common themes underlying the new .NET directions.
 * Cmd-Shift-O : Goto symbol (same file).
 * Cmd-T : Jump to symbol (all files).
 
+* Cmd-Shift-[ : Fold current block.
+* Cmd-Shift-] : Unfold current block.
 * F2 : Rename.
 * F12 : Goto definition.
 * Shift-F12 : Find all references.
 * Opt-F12 : Peek definition.
 * Cmd-Shift-M : Toggle Warnings / Errors
+
+* `git config --global core.editor "code --wait"`
