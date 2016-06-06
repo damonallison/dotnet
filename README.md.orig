@@ -2,12 +2,22 @@
 
 The .NET landscape is drastically changing (for the better). This repo contains research into the "new .NET" - .NET core, Visual Studio Code, and anything .NET "vNext".
 
+<<<<<<< HEAD
+=======
 ## TODO
 
 * [xUnit](https://xunit.github.io/)
 * TPL
+>>>>>>> 70eaa234a31c6ed17773abc4edc11694cb911c0f
+
 ## Common Themes
 
+Common themes underlying the new .NET directions.
+<<<<<<< HEAD
+
+=======
+˘
+>>>>>>> 70eaa234a31c6ed17773abc4edc11694cb911c0f
 * All OSS. Everything is developed in the open, on Github. Including Visual Studio Code.
 
 * Modularization.
@@ -26,14 +36,17 @@ The .NET landscape is drastically changing (for the better). This repo contains 
 
 * Electron based. Minimal core + extensions (Atom).
 
+<<<<<<< HEAD
 * Inline reference information (metadata) is awesome. (Find dead code). See `editor.referenceInfos` setting.
 
+=======
 * Git based, EOL default is `\n`. Unix wins. 
 
 * Inline reference information (metadata) is awesome. (Find dead code). See `editor.referenceInfos` setting.
 
 * Visual Studio Code was written with node.js, which is reflected in the documentation. There is a lot of javascript / node examples in the docs.
 
+>>>>>>> 70eaa234a31c6ed17773abc4edc11694cb911c0f
 #### Helpful Shortcut Keys
 
 * Cmd-B : Toggle left bar.
@@ -48,12 +61,18 @@ The .NET landscape is drastically changing (for the better). This repo contains 
 * Cmd-Shift-O : Goto symbol (same file).
 * Cmd-T : Jump to symbol (all files).
 
+<<<<<<< HEAD
+=======
 * Cmd-Shift-[ : Fold current block.
 * Cmd-Shift-] : Unfold current block.
+>>>>>>> 70eaa234a31c6ed17773abc4edc11694cb911c0f
 * F2 : Rename.
 * F12 : Goto definition.
 * Shift-F12 : Find all references.
 * Opt-F12 : Peek definition.
 * Cmd-Shift-M : Toggle Warnings / Errors
+<<<<<<< HEAD
+=======
 
 * `git config --global core.editor "code --wait"`
+>>>>>>> 70eaa234a31c6ed17773abc4edc11694cb911c0f
