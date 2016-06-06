@@ -1,7 +1,7 @@
 {
   "version": "1.0.0-*",
 
-  // The unit 
+  // The unit test runner.
   "testRunner": "xunit",
   "buildOptions": {
     "emitEntryPoint": true

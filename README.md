@@ -5,7 +5,12 @@ The .NET landscape is drastically changing (for the better). This repo contains 
 ## TODO
 
 * [xUnit](https://xunit.github.io/)
+  * Does `xUnit` have Xcode's concept of expectations / async execution?
+
+* Assertions, logging output, and debugging diagnostics.
+
 * TPL
+
 ## Common Themes
 
 * All OSS. Everything is developed in the open, on Github. Including Visual Studio Code.
@@ -57,3 +62,10 @@ The .NET landscape is drastically changing (for the better). This repo contains 
 * Cmd-Shift-M : Toggle Warnings / Errors
 
 * `git config --global core.editor "code --wait"`
+
+
+## "Old Microsoft" Idiotic Things
+
+* The term `Visual C#` to correspond to `Visual Basic`. `Visual C#` is a horrible name. It's just `C#`. I give MS the benefit of the doubt with `Visual Basic` since there was a `BASIC` language as a predecessor. But `C#` does not have a predecessor. It just confuses everything - documentation, searching, etc. 
+
+ 

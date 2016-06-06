@@ -1,5 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
+/// <summary>
+/// TODO
+/// * Logging framework (time, thread, function name, severity) - like Cocoa Lumberjack.
+/// * Practice task creation. Why can you simply `return x + y` and not return a task object?
+/// * Parallel for.
+/// * Exception handling (write a task which throws an exception).
+/// </summary>
 namespace Dotnet
 {
     /// <summary>
@@ -10,10 +19,16 @@ namespace Dotnet
     {
         public static void Main(string[] args)
         {
-            var t = new Types();
-            var c = new Calculator();
+            var t = new Tasks();
 
-            Console.WriteLine($"Hello World : {t}");
+            Debug.WriteLine("Add task starting");
+            Task<decimal> addTask = t.AddWithDelayAsync(2M, 2M, 2000);
+            addTask.Wait();
+
+            Debug.Assert(addTask.IsCompleted);
+            Debug.Assert(!addTask.IsFaulted);
+            
+            Console.WriteLine($"Hello World : {addTask.Result}");
         }
     }
 }
