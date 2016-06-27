@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -30,5 +30,16 @@ namespace Dotnet
             
             Console.WriteLine($"Hello World : {addTask.Result}");
         }
+
+        /// <summary>
+        /// <c>true</c>
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>   
+        private static int Test(int x, int y) {
+            return x + y;
+        }
+        
     }
 }
