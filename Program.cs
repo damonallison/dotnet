@@ -19,6 +19,8 @@ namespace Dotnet
     {
         public static void Main(string[] args)
         {
+            Dotnet.Debugging.EnvironmentDebugger.PrintEnvironment();
+            
             var t = new Tasks();
 
             Debug.WriteLine("Add task starting");

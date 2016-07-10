@@ -1,26 +1,48 @@
 # .NET Research
 
-The .NET landscape is drastically changing (for the better). This repo contains research into the "new .NET" - .NET core, Visual Studio Code, and anything .NET "vNext".
+This repo contains research into the "new .NET" - .NET core, Visual Studio Code, and Microsoft's new OSS focus.
 
-## TODO
+The .NET landscape is drastically changing (for the better). 
 
+* Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to embracing the spirit of OSS.
+  * Development done in the open, on github.
+  * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain. 
+  * Creating linux ports of Server products (e.g., SQL Server).
+ 
+
+## TODO (.NET Core)
+
+* .NET Core : how is it different from the full .NET Framework? 
+  * What is it missing?
+  * Why would I *not* use .NET Core? 
+* Where is ildasm? How to debug IL?
+
+## TODO (VS Code)
 
 * Visual Studio Code Documentation
   * https://code.visualstudio.com/Docs
 * [xUnit](https://xunit.github.io/)
   * Does `xUnit` have Xcode's concept of expectations / async execution?
 
+## TODO (C#)
+
+* C# documentation comments.
+* Documentation generation.
 * Assertions, logging output, and debugging diagnostics.
 
-* TPL
 * Code : remove whitespace on save (extension?)
 * Git integration.
 * How to use VS Code as a git merge tool?
 * File search searches thru `.IncrementalCache` and other non-code objects.
 
+## TODO (BCL)
+
+* TPL
+
 ## Common Themes
 
 * All OSS. Everything is developed in the open, on Github. Including Visual Studio Code.
+* .NET Core is an alternate .NET Framework version which runs on Linux, macOS, and Windows.
 
 * Modularization.
   * Fully self-contained application distributions possible (containerable). Eliminates versioning problems.
@@ -45,6 +67,10 @@ This is radical, radical territory for Microsoft and is a leading indicator of w
 Equally interesting is the underlying technology in which VS Code is developed in. Javascript. Modern Javascript. VS Code uses Github's excellent open source javascript application framework Electron, which truly redefines the idea of "native software". Electron and the JS development model is an excellent way to build and package multi-platform software. Using Electron was a major, albeit welcome shift for Microsoft and the .NET community. 
 
 VS Code, while in many respects is a "me too" with other non-bloated source code editors like Atom, it is the best .NET IDE on the market today. More important, VS Code signals the underlying OSS focused culture is sweeping over Microsoft. I'm excited for the Microsoft community.
+
+### Addendum
+
+Assume that Microsoft continues with this OSS track. What advantages will they have over the OSS community? What advantage does Google, Apple, Amazon, or Facebook have over the OSS community? Why would engineers want to program for Windows? For Exchange? For SQL Server? Why would I ever want to program with Microsoft's tools?
 
 
 
