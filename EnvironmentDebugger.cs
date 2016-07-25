@@ -9,39 +9,40 @@ namespace Dotnet.Debugging
     /// </summary>
     public static class EnvironmentDebugger
     {
-
         public static void PrintEnvironment()
         {
-            PrintDelimiter();
-            PrintMachineInformation();
-            PrintDelimiter();
-            PrintArgs();
-            PrintDelimiter();
-            PrintEnvironmentVariables();
+
+            PrintInDelimiters(() => {
+                PrintMachineInformation();
+            });
+
+            PrintInDelimiters(() => {
+                PrintArgs();
+            });
+
             PrintInDelimiters(() => {
                 PrintEnvironmentVariables();
             });
-
         }
 
-        public static void PrintMachineInformation() 
+        private static void PrintMachineInformation() 
         {
             Console.WriteLine($"MachineName:{Environment.MachineName}");
             Console.WriteLine($"ProcessorCount:{Environment.ProcessorCount}");
             Console.WriteLine($"CurrentManagedThreadId:{Environment.CurrentManagedThreadId}");
         }
 
-        public static void PrintArgs()
+        private static void PrintArgs()
         {
             string[] args = Environment.GetCommandLineArgs();
             Console.WriteLine($"Command Line Arguments ({args.Count()}):");
             for (int i = 0; i < args.Count(); i++)
             {
-                Console.WriteLine("[{i}]:{args[i]}");
+                Console.WriteLine($"[{i}]:{args[i]}");
             }
         }
 
-        public static void PrintEnvironmentVariables()
+        private static void PrintEnvironmentVariables()
         {
             IDictionary vars = Environment.GetEnvironmentVariables();
             Console.WriteLine($"Environment Variables ({vars.Count}):");
@@ -58,6 +59,7 @@ namespace Dotnet.Debugging
             // byte = 8 bits
             Console.WriteLine($"byte = {byte.MinValue - byte.MaxValue}");
         }
+
         private static void PrintInDelimiters(Action action) 
         {
             PrintDelimiter();
@@ -67,6 +69,10 @@ namespace Dotnet.Debugging
 
         private static void PrintDelimiter(int count = 80) 
         {
+            count = Math.Min(40, count);
+            for (int i = 0; i < 5; i++) {
+                Console.Write("-");
+            }
             for (int i = 0; i < 80; i++)
             {
                 Console.Write("-");

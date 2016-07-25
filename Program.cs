@@ -2,6 +2,8 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
+using Dotnet.Debugging;
+
 /// <summary>
 /// TODO
 /// * Logging framework (time, thread, function name, severity) - like Cocoa Lumberjack.
@@ -19,7 +21,8 @@ namespace Dotnet
     {
         public static void Main(string[] args)
         {
-            Dotnet.Debugging.EnvironmentDebugger.PrintEnvironment();
+            EnvironmentDebugger.PrintEnvironment();
+            EnvironmentDebugger.PrintFundamentalTypes();
             
             var t = new Tasks();
 
