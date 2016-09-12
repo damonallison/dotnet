@@ -2,20 +2,23 @@
 
 This repo contains research into the "new .NET" - .NET core, Visual Studio Code, and Microsoft's new OSS focus.
 
-The .NET landscape is drastically changing (for the better). 
+The .NET landscape is drastically changing (for the better).  
 
 * Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to embracing the spirit of OSS.
   * Development done in the open, on github.
   * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain. 
   * Creating linux ports of Server products (e.g., SQL Server).
- 
+  * OSS, multi-platform, command line based by default.
 
-## TODO (.NET Core)
+## Links 
+[Getting started with .NET Core](https://docs.microsoft.com/en-us/dotnet/articles/core/index) 
 
-* .NET Core : how is it different from the full .NET Framework? 
-  * What is it missing?
-  * Why would I *not* use .NET Core? 
-* Where is ildasm? How to debug IL?
+* High level overview of the pieces and architecture of .NET core.
+
+[Getting started with .NET Core on macOS](https://docs.microsoft.com/en-us/dotnet/articles/core/tutorials/using-on-macos)
+
+* Tutorial on creating a project with a main project, library, and unit tests.
+
 
 ## TODO (VS Code)
 
@@ -23,6 +26,9 @@ The .NET landscape is drastically changing (for the better).
   * https://code.visualstudio.com/Docs
 * [xUnit](https://xunit.github.io/)
   * Does `xUnit` have Xcode's concept of expectations / async execution?
+* Code : remove whitespace on save (extension?)
+* Git integration.
+* How to use VS Code as a git merge tool?
 
 ## TODO (C#)
 
@@ -30,14 +36,10 @@ The .NET landscape is drastically changing (for the better).
 * Documentation generation.
 * Assertions, logging output, and debugging diagnostics.
 
-* Code : remove whitespace on save (extension?)
-* Git integration.
-* How to use VS Code as a git merge tool?
-* File search searches thru `.IncrementalCache` and other non-code objects.
-
 ## TODO (BCL)
 
 * TPL
+* async / await
 
 ## Common Themes
 
@@ -49,6 +51,23 @@ The .NET landscape is drastically changing (for the better).
   * "CoreFX" (the standard library) is a modular collection of libraries. You can include only the framework components you need.
 
 * Microsoft.NetCore.App : included with the runtime. Includes base types, Console, Task and other "necessary" types. This is the foundation of .NET.
+
+## .NET Core
+
+Q. What is .NET Core?
+
+A. A cross-platform version of .NET, including : .NET Core includes a .NET Runtime, framework libraries, SDK tools (compilers, SDK tools), and a `dotnet` app host.
+
+* It's interesting that .NET core includes console apps and ASP.NET apps. Anything that is MS specific (like WPF or Winforms) are obviously not part of .NET core. 
+* ARM32 and ARM64 are coming soon. Perhaps we could run .NET apps on Android and iOS, but why?
+* Most of .NET Core is shared code. There are platform specific implementations 
+* .NET core's aim is to create a cross platform environemnt free of platform specific features (windows registry, code access security). 
+* The team's goal is to create a version of .NET not bogged down to Windows, IIS, or with obsolete Windows libraries and technologies.
+* ASP.NET is the primary use case with .NET core. Microsoft is essentially admitting that native apps are obsolete.
+
+
+
+
 
 ## Visual Studio Code
 
@@ -115,6 +134,18 @@ Assume that Microsoft continues with this OSS track. What advantages will they h
 
 ## "Old Microsoft" Idiotic Things
 
-* The term `Visual C#` to correspond to `Visual Basic`. `Visual C#` is a horrible name. It's just `C#`. I give MS the benefit of the doubt with `Visual Basic` since there was a `BASIC` language as a predecessor. But `C#` does not have a predecessor. It just confuses everything - documentation, searching, etc. 
+* The term `Visual C#` to correspond to `Visual Basic`. `Visual C#` is a horrible name. It's just `C#`. I give MS the benefit of the doubt with `Visual Basic` since there was a `BASIC` language as a predecessor and `Visual Basic` existed in non-.NET form prior to .NET. But `C#` does not have a predecessor. It was born with .NET. It just confuses everything - documentation, searching, etc. 
 
- 
+
+## .NET Tutorial
+
+````
+The standard folder structure (see `global.json`)
+  src/
+  test/
+```
+
+* `dotnet new -t lib` - create a new library project (in the dir you want to create the lib (`cd src/library`)
+* `dotnet new -t xunittest` - create a new `xunittest` test project. 
+* `dotnet restore` - restore dependencies
+* `dotnet new` - create a new console app

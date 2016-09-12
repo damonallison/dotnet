@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Dotnet.Debugging;
+using DamonAllison.Library;
 
 /// <summary>
 /// TODO
@@ -21,6 +21,9 @@ namespace Dotnet
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine($"2 + 2 = {Calculator.Add(2, 2)}");
+            return;
+            
             EnvironmentDebugger.PrintEnvironment();
             EnvironmentDebugger.PrintFundamentalTypes();
             

@@ -1,3 +1,5 @@
+
+
 {
     "version": "0.1.0",
     "command": "dotnet",
@@ -14,5 +16,11 @@
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         }
-    ]
+    ],
+
+    // By default, VS Code wants to launch from the root directory.
+    // We need to specify `cwd` to build the main application.
+    "options": {
+        "cwd": "${workspaceRoot}/src/app"
+    }
 }

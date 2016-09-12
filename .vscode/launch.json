@@ -1,16 +1,27 @@
+/**
+ * Configures the default launch targets. 
+ *
+ * Note that the .vscode directory is *not* typically included in source
+ * control. This 
+ */
 {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core - Console",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/dotnet.dll",
+            
+            // Notice that even the main console app is a .dll. Gone are the days of Windows .exe.
+            "program": "${workspaceRoot}/src/app/bin/Debug/netcoreapp1.0/app.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false
-        },
+        }
+        /*
+
+        These launch targets came out 
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
@@ -41,5 +52,6 @@
             "request": "attach",
             "processName": "<example>"
         }
+        */
     ]
 }
