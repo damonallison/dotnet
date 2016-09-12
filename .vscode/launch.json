@@ -2,7 +2,7 @@
  * Configures the default launch targets. 
  *
  * Note that the .vscode directory is *not* typically included in source
- * control. This 
+ * control.  
  */
 {
     "version": "0.2.0",
@@ -10,6 +10,9 @@
         {
             "name": ".NET Core - Console",
             "type": "coreclr",
+            
+            // "launch" will launch the application.
+            // "attach" will attach the debugger to an already running application.
             "request": "launch",
             "preLaunchTask": "build",
             
@@ -18,10 +21,18 @@
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false
+        },
+        {
+            "name": "Library xUnit Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "libraryTests"
+
         }
         /*
 
-        These launch targets came out 
+        // These launch targets came out of the box. Keeping them around for posterity.
+
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",

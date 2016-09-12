@@ -1,14 +1,22 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
+using DamonAllison.Library;
 
 namespace Tests
 {
     public class Tests
     {
         [Fact]
-        public void Test1() 
+        public void Add() 
         {
-            Assert.True(true);
+            Assert.Equal(4, Calculator.Add(2, 2));
+        }
+
+        /// <summary>
+        /// Shows how to ignore a `Fact`. The Skip reason will be printed to console.
+        /// </summary>
+        [Fact(Skip = "This test is flaky")]
+        public void DivideByZero() {
+            Assert.Equal(0, Calculator.Divide(10, 0));
         }
     }
 }

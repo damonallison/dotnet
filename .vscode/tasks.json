@@ -1,5 +1,3 @@
-
-
 {
     "version": "0.1.0",
     "command": "dotnet",
@@ -15,6 +13,11 @@
             // When set to 'true', Cmd-Shift-B will trigger this task.
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "libraryTests",
+            "isTestCommand": true
+
         }
     ],
 

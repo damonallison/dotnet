@@ -1,5 +1,13 @@
 # .NET Research
 
+## TODO 
+
+* Determine how to debug all .NET tests (not just a single test).
+* Read up on xUnit `Fact` and `Theory` attributes.
+* Continue Essential C#.
+ 
+
+
 This repo contains research into the "new .NET" - .NET core, Visual Studio Code, and Microsoft's new OSS focus.
 
 The .NET landscape is drastically changing (for the better).  
