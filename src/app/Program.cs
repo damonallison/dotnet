@@ -10,6 +10,7 @@ using DamonAllison.Library;
 /// * Practice task creation. Why can you simply `return x + y` and not return a task object?
 /// * Parallel for.
 /// * Exception handling (write a task which throws an exception).
+/// * async / await / promises
 /// </summary>
 namespace Dotnet
 {
