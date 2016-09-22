@@ -1,8 +1,12 @@
 {
   "version": "1.0.0-*",
+
+  "testRunner": "xunit",
+  
   "buildOptions": {
     "debugType": "portable"
   },
+
   "dependencies": {
     "System.Runtime.Serialization.Primitives": "4.1.1",
     "xunit": "2.1.0",
@@ -14,7 +18,7 @@
       "target" : "project"
     }
   },
-  "testRunner": "xunit",
+  
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {

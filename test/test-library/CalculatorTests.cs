@@ -3,7 +3,7 @@ using DamonAllison.Library;
 
 namespace Tests
 {
-    public class Tests
+    public class CalculatorTests
     {
         [Fact]
         public void Add() 

@@ -26,7 +26,7 @@
             "name": "Library xUnit Tests",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "libraryTests"
+            "preLaunchTask": "test-csharp"
 
         }
         /*

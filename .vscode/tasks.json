@@ -15,7 +15,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "taskName": "libraryTests",
+            "taskName": "test-csharp",
             "isTestCommand": true
 
         }
