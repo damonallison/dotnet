@@ -5,6 +5,8 @@
 * Determine how to debug all .NET tests (not just a single test).
 * Read up on xUnit `Fact` and `Theory` attributes.
 * Continue Essential C#.
+* Generate documentation comments from source code.
+* How to print the name of each test start / execution / end so any `Console.WriteLine` statements are part of the output. 
  
 
 

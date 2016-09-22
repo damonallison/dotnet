@@ -18,11 +18,6 @@ namespace DamonAllison.CSharp
     /// 
     /// <code>Fact</code>s are tests which are always true. They test invariant conditions.
     /// <code>Theory</code>ies are tests which only return true for a particular set of data.
-    /// 
-    /// TODO:
-    /// * Generate documentation comments from source code.
-    /// * 
-    /// * How to print the name of each test start / execution / end so any `Console.WriteLine` statements are part of the output. 
     /// </summary>
     public class XUnitExamples
     {
