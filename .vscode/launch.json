@@ -22,17 +22,13 @@
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
             "externalConsole": false
-        }
-        /*
-
-        // These launch targets came out of the box. Keeping them around for posterity.
-
+        },
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/dotnet.dll",
+            "program": "${workspaceRoot}/src/api/bin/Debug/netcoreapp1.0/api.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
@@ -50,13 +46,12 @@
                     "command": "xdg-open"
                 }
             }
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processName": "<example>"
         }
-        */
+        // {
+        //     "name": ".NET Core Attach",
+        //     "type": "coreclr",
+        //     "request": "attach",
+        //     "processName": "<example>"
+        // }
     ]
 }
