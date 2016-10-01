@@ -11,6 +11,8 @@
 ## Projects
 
 * Micro-service web api in .NET core.
+    * Finish [Your first ASP.NET Core Application](https://docs.asp.net/en/latest/tutorials/your-first-mac-aspnet.html).
+    * Deployed to Azure.
     * Accessing a postgres DB.
     * username / password based auth against a "password" table.
     * oauth
