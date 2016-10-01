@@ -7,7 +7,14 @@
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
     > "Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware.
-     
+
+## Projects
+
+* Micro-service web api in .NET core.
+    * Accessing a postgres DB.
+    * username / password based auth against a "password" table.
+    * oauth
+
 ## C#
 
 * C# documentation comment syntax / generation.

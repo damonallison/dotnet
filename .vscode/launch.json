@@ -20,14 +20,8 @@
             "program": "${workspaceRoot}/src/app/bin/Debug/netcoreapp1.0/app.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
-            "stopAtEntry": false
-        },
-        {
-            "name": "Library xUnit Tests",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "test-csharp"
-
+            "stopAtEntry": false,
+            "externalConsole": false
         }
         /*
 

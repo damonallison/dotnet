@@ -15,6 +15,7 @@
             "problemMatcher": "$msCompile"
         },
         {
+            
             "taskName": "test-csharp",
             "isTestCommand": true
 

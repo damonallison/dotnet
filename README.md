@@ -14,8 +14,15 @@ Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to e
 * [Getting started with .NET Core](https://docs.microsoft.com/en-us/dotnet/articles/core/index) 
   * High level overview of the pieces and architecture of .NET core.
 
+* [Announcing .NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/)
+  * The initial introduction to .NET Core. Includes the history, story, goals, the platform landscape, and creating hello world.
+
 * [Getting started with .NET Core on macOS](https://docs.microsoft.com/en-us/dotnet/articles/core/tutorials/using-on-macos)
   * Tutorial on creating a project with a main project, library, and unit tests.
+
+* [Building Your First Web API with ASP.NET Core MVC and Visual Studio](https://docs.asp.net/en/latest/tutorials/first-web-api.html)
+
+* [Your First ASP.NET Core Application on a Mac Using Visual Studio Code](https://docs.asp.net/en/latest/tutorials/your-first-mac-aspnet.html)
 
 ## .NET Core : High level overview
 

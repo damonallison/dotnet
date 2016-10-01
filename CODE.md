@@ -2,7 +2,7 @@
 
 ## .NET Tutorial
 
-````
+```
 The standard folder structure (see `global.json`)
   src/
   test/
@@ -37,3 +37,14 @@ The standard folder structure (see `global.json`)
 
 * `git config --global core.editor "code --wait"`
 
+## ASP.NET 
+
+* [Your First ASP.NET Core Application on a Mac Using Visual Studio Code](https://docs.asp.net/en/latest/tutorials/your-first-mac-aspnet.html)
+
+### Tools
+
+* [Yeoman - web code generator](http://yeoman.io/)
+* [Bower - web package manager](https://bower.io/)
+* [Kestrel - Web Server]()
+> brew install node
+> npm install -g yo generator-aspnet bower
