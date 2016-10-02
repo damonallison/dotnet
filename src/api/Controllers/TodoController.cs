@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TodoAPI.Controllers
+namespace TodoApi.Controllers
 {
     [Route("api/todo")]
     public class TodoController : Controller

@@ -42,3 +42,11 @@
 * Remove whitespace on save (extension?)
 * Git integration.
 * How to use VS Code as a git merge tool?
+
+## Azure
+
+* Resource groups.
+* How to require SSL?
+* Logging / diagnostics.
+* 
+
