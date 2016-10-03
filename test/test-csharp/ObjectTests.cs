@@ -8,7 +8,7 @@ namespace DamonAllison.CSharpTests
     {
 
         [Fact]
-        public void InitializerTest()  
+        public void ObjectInitializerTest()  
         {
             // C# 3.0 added object initializers. Object initializers
             // allow you to set field / property values on the object.
@@ -21,8 +21,11 @@ namespace DamonAllison.CSharpTests
                 FirstName = "Damon", 
                 LastName = "Allison"
             };
-            
+            Assert.True(p.Id > 0);
+            Assert.Equal(Person.NextId, p.Id + 1);
         }
+
+        [Fact]
         public void CollectionInitializerTest() 
         {
             // C# 3.0 added collection initializers. 
@@ -43,5 +46,36 @@ namespace DamonAllison.CSharpTests
             };
             Assert.Equal(2, family.Count);
         }
+
+        [Fact]
+        public void ExtensionMethodTest()
+        {
+            string damon = "damon";
+            Assert.Equal("Damon", damon.Capitalize());
+        }
+
+        /// <summary>
+        /// Conversion operators (implicit or explicit) allow you to convert
+        /// a type (A) to another type (B) where the two types are not part 
+        /// of an inheritance hierarchy.
+        /// </summary>
+        [Fact]
+        public void ConversionOperatorTest() 
+        {
+            Person p = new Person("Test", "User");
+            string s = (string)p;
+            Assert.Equal("Test User", s);
+        }
+
+        [Fact]
+        public void InheritanceTest()
+        {
+            Employee e = new Employee("Damon", "Allison", "allidam");
+            Assert.IsAssignableFrom<Employee>(e);
+            Assert.IsAssignableFrom<Person>(e);
+        }
+
+
+
     }
 }
