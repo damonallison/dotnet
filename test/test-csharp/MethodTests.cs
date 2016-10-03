@@ -30,6 +30,19 @@ namespace DamonAllison.CSharpTests
             Assert.Equal(2, Params("Damon", "Allison"));
         }
 
+        [Fact]
+        public void OptionalParametersTest() 
+        {
+            Assert.Equal("FirstName LastName", OptionalName());
+            Assert.Equal("Damon LastName", OptionalName(firstName : "Damon"));
+
+            // C# 4.0 introduced "named arguments" - allowing the caller to specify 
+            // each parameter by name. It's important to note that if named arguments
+            // are used, the argument names become part of the object's contract and 
+            // cannot be changed without breaking compatibility.
+            Assert.Equal("Damon Allison", OptionalName(lastName: "Allison", firstName: "Damon"));
+        }
+
         private void Swap(ref string firstName, ref string lastName) 
         {
             string temp = firstName;
@@ -60,5 +73,12 @@ namespace DamonAllison.CSharpTests
         {
             return parameters.Length;
         }
+
+        /// <summary>
+        /// Parameters can be associated with a constant value, which makes them optional.
+        ///  
+        /// Optional parameters must come after all required parameters.
+        /// </summary>
+        private string OptionalName(string firstName = "FirstName", string lastName = "LastName") => $"{firstName} {lastName}";
     }
 }
