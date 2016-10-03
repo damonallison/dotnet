@@ -55,6 +55,11 @@ namespace TodoApi
 
         }
 
+        /// <summary>
+        /// Configures swagger. You can view swagger documentation at
+        /// http://localhost:5000/swagger/ui/index.html
+        /// </summary>
+        /// <param name="services"></param>
         private void ConfigureSwagger(IServiceCollection services) {
             services.ConfigureSwaggerGen(options => 
             {
@@ -73,10 +78,10 @@ namespace TodoApi
                 options.SingleApiVersion(info);
 
                 // Tell swagger where to find generated comments for our API. 
-                string basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                string documentationPath = System.IO.Path.Combine(basePath, "MyFirstApi.xml");
-                System.Console.WriteLine($"xml documentation path : {documentationPath}");
-                options.IncludeXmlComments(documentationPath);
+                // string basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                // string documentationPath = System.IO.Path.Combine(basePath, "TodoApi.xml");
+                // System.Console.WriteLine($"xml documentation path : {documentationPath}");
+                // options.IncludeXmlComments(documentationPath);
             });
         }
     }
