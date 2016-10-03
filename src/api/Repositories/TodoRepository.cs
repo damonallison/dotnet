@@ -6,6 +6,11 @@ using TodoApi.Models;
 
 namespace TodoApi.Repositories
 {
+
+    /// <summary>
+    /// Repositories are typically backed with a DB table, however
+    /// we are storing everything in memory for simplicity. 
+    /// </summary>
     public class TodoRepository : ITodoRepository
     {
         private static ConcurrentDictionary<string, TodoItem> _todos =
@@ -13,28 +18,28 @@ namespace TodoApi.Repositories
 
         public TodoRepository()
         {
-            Create(new TodoItem { Name = "Item1" });
+            Add(new TodoItem { Name = "Item1" });
         }
 
-        public void Create(TodoItem item)
+        public IEnumerable<TodoItem> GetAll()
+        {
+            return _todos.Values;
+        }
+
+        public void Add(TodoItem item)
         {
             item.Key = Guid.NewGuid().ToString();
             _todos[item.Key] = item;
         }
 
-        public IEnumerable<TodoItem> Get()
-        {
-            return _todos.Values;
-        }
-
-        public TodoItem Get(string key)
+        public TodoItem Find(string key)
         {
             TodoItem item;
             _todos.TryGetValue(key, out item);
             return item;
         }
 
-        public TodoItem Delete(string key)
+        public TodoItem Remove(string key)
         {
             TodoItem item;
             _todos.TryRemove(key, out item);

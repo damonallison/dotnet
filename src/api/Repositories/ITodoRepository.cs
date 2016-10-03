@@ -1,12 +1,14 @@
+using System.Collections.Generic;
 using TodoApi.Models;
 
 namespace TodoApi.Repositories
 {
     public interface ITodoRepository
     {
-        void Create(TodoItem item);
-        IEnumerable<TodoItem> Get();
-        TodoItem Get(string key);
-        TodoItem Delete(string key);
-        void Update(TodoItem item);   }
+        void Add(TodoItem item);
+        IEnumerable<TodoItem> GetAll();
+        TodoItem Find(string key);
+        TodoItem Remove(string key);
+        void Update(TodoItem item);
+    }
 }
