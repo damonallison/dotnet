@@ -3,7 +3,7 @@
 ## Reading 
 
 * Essential C#.
-    * Start @ 259
+    * Start @ 351 - Value types.
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
@@ -23,11 +23,13 @@
 * C# documentation comment syntax / generation.
 * Assertions, logging output, and debugging diagnostics.
 * Delegates / lambdas.
+* Attributes
 
 ## BCL
 
 * TPL
 * async / await
+* IEnumerable / LINQ
 
 ## Unit testing
 

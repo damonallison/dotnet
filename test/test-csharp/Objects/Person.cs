@@ -2,30 +2,8 @@ using System;
 
 namespace DamonAllison.CSharpTests.Objects
 {
-    public class Person
+    public class Person : IdentityBase
     {
-        
-    
-        public static int NextId { get; private set; } = 1;
-        /// <summary>
-        /// Static constructors provide a means to initialize the class
-        /// itself, rather than an instance of a class.
-        /// 
-        /// Important : Do *not* throw an exception from a static initializer. 
-        /// The type will be unusable for the remainder of the application's 
-        /// lifetime.
-        /// 
-        /// The order of operations for class instance initialization:
-        /// 
-        /// 0. Static properties are set to their default values.
-        /// 1. Static constructor is invoked.
-        /// 2. Instance properties are set to their default values.
-        /// 3. Instance constructure is invoked.d
-        /// </summary>
-        static Person()
-        {
-            Console.WriteLine("static Person() has been called.");
-        }
         public Person() : this("First", "Last")
         {
         }
@@ -35,12 +13,11 @@ namespace DamonAllison.CSharpTests.Objects
             : this(firstName, lastName, 0) 
         {
         }
-        public Person(string firstName, string lastName, int age) 
+        public Person(string firstName, string lastName, int age)  
         {
             FirstName = firstName;
             LastName = lastName;
             Age = age;
-            NextId++;
         }
 
         #region 
@@ -63,8 +40,7 @@ namespace DamonAllison.CSharpTests.Objects
         }
 
         #endregion
-        public int Id { get; } = NextId;
-
+ 
         /// <summary>
         /// "Auto-implemented" properties implement a private backing 
         /// field to store the property value. 
@@ -93,7 +69,19 @@ namespace DamonAllison.CSharpTests.Objects
             }
         }
         public string LastName { get; set; }
-        public string Name 
+
+        /// <summary>
+        /// Virtual allows derived classes to override the property / method.
+        /// 
+        /// Be careful of the fragile base class problem when exposing virtual 
+        /// methods. The fragile base class problem is where derived classes
+        /// do not act as expected when changes to the base class are made.
+        /// 
+        /// For example, if this property was changed to invoke an overridden 
+        /// method, infinite recursion could occur if the derived class didn't 
+        /// expect the overridden method to be invoked.
+        /// </summary>
+        public override string Name 
         { 
             get 
             { 

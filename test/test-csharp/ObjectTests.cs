@@ -1,6 +1,7 @@
-using Xunit;
 using DamonAllison.CSharpTests.Objects;
+using System;
 using System.Collections.Generic;
+using Xunit;
 
 namespace DamonAllison.CSharpTests
 {
@@ -73,9 +74,80 @@ namespace DamonAllison.CSharpTests
             Employee e = new Employee("Damon", "Allison", "allidam");
             Assert.IsAssignableFrom<Employee>(e);
             Assert.IsAssignableFrom<Person>(e);
+            Assert.IsAssignableFrom<IIdentity>(e);
+
+            Person p = e;
+            IIdentity i = p;
+            Assert.Equal("Allison, Damon", e.Name);
+            Assert.Equal("Allison, Damon", p.Name);
+            Assert.Equal(p.Id, i.Id);
+
+            // Note that we have three references to the same object. 
+            Assert.True(Object.ReferenceEquals(e, p));
+            Assert.True(Object.ReferenceEquals(p, i));
+
+            // `is` determines if an object is of a given type. Generally, you want
+            // to avoid having to downcast an object. You should be able to work with 
+            // an object as it's declared in the current scope. If you need to downcast, 
+            // consider changing the declaration of the function to require the specific
+            // type you are looking for.
+            Assert.True(p is IIdentity);
+            Assert.True(p is IdentityBase);
+            Assert.NotNull(p as Employee);
+
+            // `as` goes a step beyond `is`. If the object is of a given type, it will
+            // convert the type and return a reference to the object as the target type
+            // or `null` if the cast is not valid.
+            //  
+            // C#'s' type checker is smart enough to know that p (Person) cannot be converted
+            // to a string. Therefore, we cast to `object` to fool the type checker.      
+            Assert.Null((object)p as string);  
         }
 
+        /// <summary>
+        /// Person's abstract base class, <see cref="IdentityBase"/> defines
+        /// a static member "NextId". When any new IdentityBase object is created,
+        /// it must have a new, unique Id. This test verifies that identities are 
+        /// handled correctly by the base.  
+        /// </summary>
+        [Fact]
+        public void AbstractBaseTest()
+        {
+            // Employee and person both derive from AbstractBase, therefore 
+            // they both will contain unique identifiers
+            Person one = new Person("Damon", "Allison");
+            Employee two = new Employee("Damon", "Allison", "allidam");
+            Assert.True(one.Id > 0);
+            Assert.True(two.Id == one.Id + 1);
+            Assert.True(Person.NextId == two.Id + 1);
 
+        }
 
+        /// <summary>
+        /// Explicit interface implementation requires the caller cast an
+        /// object to the interface reference before calling a member.
+        /// 
+        /// In our object hierarchy, ILoggable is explicitly implemented
+        /// by IdentityBase. Therefore, you must cast all objects to ILoggable
+        /// to log them. Any member explicitly implemented is not added to the 
+        /// type's declaration space.
+        /// 
+        /// Explicit interface implementation is preferred when the interface's 
+        /// members are not essential to the object.
+        ///   
+        /// Favor explicit implementations when possible to reduce the type's 
+        /// footprint.
+        /// </summary>
+        [Fact]
+        public void ExplicitInterfaceImplementation()
+        {
+            Person p = new Person();
+            ((ILogable)p).Log();
+
+            // Note that LogToDB is an extension method in ILogablExtensions. 
+            // Extension methods work with interfaces in the same way they work
+            // with concrete types.
+            ((ILogable)p).LogToDB();
+        }
     }
 }
