@@ -1,43 +1,12 @@
-using System;
 using Xunit;
+using DamonAllison.CSharpTests.ValueTypes;
+using DamonAllison.CSharpTests.Enums;
+
+using System;
+using System.Collections.Generic;
 
 namespace DamonAllison.CSharpTests
 {
-
-    /// <summary>
-    /// An example of a value type (struct).
-    /// 
-    /// Value types should be small since they copied around on the stack.
-    /// 
-    /// Value types should be immutable. The programmer may *think* they are
-    /// working with a reference type and expect reference type semantics. By
-    /// forcing immutability, a programmer cannot make mistakes when using 
-    /// the value type. 
-    /// 
-    /// </summary>
-    internal struct Square
-    {
-        /// <summary>
-        /// Each value type constructor must initialize all fields.
-        /// </summary>
-        public Square(int width, int height)
-        {
-            Width = width;
-            Height = height;
-        }
-
-        public int Width { get; }
-        public int Height { get; }
-
-        public int Area 
-        {
-            get
-            {
-                return Width * Height;
-            }
-        }
-    }
-
     /// <summary>
     /// Value types are stack stored data structures. 
     /// 
@@ -50,6 +19,14 @@ namespace DamonAllison.CSharpTests
     /// Value types should be small (since frequent copies will occur).
     /// The recommended guidance is 16 bytes or less.
     /// There are two categories of value types : enums and structs.
+    /// 
+    /// Important : Immutability
+    /// 
+    /// Value types should be immutable since boxing and unboxing will 
+    /// occur on value types. It is not immediately obvious in many cases
+    /// if you are working with a boxed or unboxed value. To avoid any 
+    /// ambiguity (and have a good, functional data structure), make 
+    /// all value types immutable.
     /// </summary> 
     public class ValueTypeTests
     {
@@ -62,5 +39,47 @@ namespace DamonAllison.CSharpTests
            Square s = new Square(width, height);
            Assert.Equal(width * height, s.Area);
         }
+
+        [Fact]
+        public void ValueTypeEqualityTest()
+        {
+            // Value types are copied.
+            Square x = new Square(10, 10);
+            Square y = x;
+            Assert.NotSame(x, y);
+
+            // default(ValueType) will implicitly initialize an instance of the value type.
+            // Implicit initialization of value types results in a zeroed-out memory block.
+            // Therefore, it is not practical to use the default() operator on immutable 
+            // value types such as Square. (And all your value types are immutable, right?)
+            Square z = default(Square);
+            Assert.Equal(0, z.Height);
+        }
+
+        [Fact]
+        public void BoxingTest() 
+        {
+            Square x = new Square(10, 10);
+            List<Square> lst = new List<Square>();
+            lst.Add(x);
+        }
+
+        [Fact]
+        public void EnumTest()
+        {
+            ConnectionState state = default(ConnectionState);
+            Assert.Equal(ConnectionState.Disconnected, state);
+
+            // The default behavior of System.Enum.ToString() is to use the 
+            // enum's identifier.
+            Assert.Equal("Disconnected", ConnectionState.Disconnected.ToString());
+
+            // Converting from a string -> enum
+            Assert.True(Enum.TryParse("Connected", out state));
+            Assert.Equal(ConnectionState.Connected, state);
+
+            // Obtaining the underlying enum value requires a type cast.
+            Assert.Equal(2, (int)state);
+       }
     }
 }

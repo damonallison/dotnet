@@ -71,7 +71,7 @@ namespace DamonAllison.CSharpTests
         [Fact]
         public void InheritanceTest()
         {
-            Employee e = new Employee("Damon", "Allison", "allidam");
+            Employee e = new Employee(1, "Damon", "Allison", 20, "allidam");
             Assert.IsAssignableFrom<Employee>(e);
             Assert.IsAssignableFrom<Person>(e);
             Assert.IsAssignableFrom<IIdentity>(e);
@@ -116,7 +116,7 @@ namespace DamonAllison.CSharpTests
             // Employee and person both derive from AbstractBase, therefore 
             // they both will contain unique identifiers
             Person one = new Person("Damon", "Allison");
-            Employee two = new Employee("Damon", "Allison", "allidam");
+            Employee two = new Employee(1, "Damon", "Allison", 20, "allidam");
             Assert.True(one.Id > 0);
             Assert.True(two.Id == one.Id + 1);
             Assert.True(Person.NextId == two.Id + 1);
@@ -150,6 +150,32 @@ namespace DamonAllison.CSharpTests
             // Extension methods work with interfaces in the same way they work
             // with concrete types.
             ((ILogable)p).Log();
+        }
+
+        /// <summary>
+        /// Well formed types provide overrides for `System.Object` virtual members
+        /// .ToString()
+        /// .Equals()
+        /// .GetHashCode()
+        /// </summary>
+        [Fact]
+        public void WellFormedTypes()
+        {
+            Person p = new Person(1, "Damon", "Allison", 20);
+            Console.WriteLine(p);
+
+            // Equality.
+            Person c = new Person(1, "Damon", "Allison", 20);
+            Assert.True(c.GetHashCode() == p.GetHashCode());
+            Assert.True(c.Equals(p));
+            Assert.True(c == p);
+            Assert.False(c != p);
+
+            c.FirstName = "Cole";
+            Assert.False(c.GetHashCode() == p.GetHashCode());
+            Assert.False(c.Equals(p));
+            Assert.False(c == p);
+            Assert.True(c != p);            
         }
     }
 }

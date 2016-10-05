@@ -8,7 +8,7 @@
 ## Reading 
 
 * Essential C#.
-    * Start @ 360 - Value types.
+    * Start @ 402 - Well formed types.
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
@@ -35,6 +35,7 @@
 * TPL
 * async / await
 * IEnumerable / LINQ
+* Core interface types IEquatable, IFormattable
 
 ## Unit testing
 

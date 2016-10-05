@@ -4,16 +4,37 @@ namespace DamonAllison.CSharpTests.Objects
 {
     public class Person : IdentityBase
     {
+        /// <summary>
+        /// "Auto-implemented" properties implement a private backing 
+        /// field to store the property value. 
+        ///    
+        /// C# 6.0 added the ability to initialize properites to a 
+        /// default value with initializer syntax.
+        /// 
+        /// Without an access modifier, members are private.
+        /// </summary>
+        public int? Age { get; set; } = null;
+
         public Person() : this("First", "Last")
         {
         }
 
         // Constructor chaining.
         public Person(string firstName, string lastName)
-            : this(firstName, lastName, 0) 
+            : this(firstName, lastName, null) 
         {
         }
-        public Person(string firstName, string lastName, int age)  
+
+        public Person(string firstName, string lastName, int? age) : base()
+        {
+            // Id is assigned by base()
+            FirstName = firstName;
+            LastName = lastName;
+            Age = age;
+        }  
+
+        public Person(int id, string firstName, string lastName, int? age) 
+            : base(id)  
         {
             FirstName = firstName;
             LastName = lastName;
@@ -41,17 +62,6 @@ namespace DamonAllison.CSharpTests.Objects
 
         #endregion
  
-        /// <summary>
-        /// "Auto-implemented" properties implement a private backing 
-        /// field to store the property value. 
-        ///    
-        /// C# 6.0 added the ability to initialize properites to a 
-        /// default value with initializer syntax.
-        /// 
-        /// Without an access modifier, members are private.
-        /// </summary>
-        int? Age { get; set; } = null;
-
         private string _firstName;
         public string FirstName 
         { 
@@ -92,8 +102,67 @@ namespace DamonAllison.CSharpTests.Objects
         #region Object Overrides
         
         public override string ToString() {
-            return $"Person[{Id}]: \"{FirstName} {LastName}\"";
+            return $"{base.ToString()} Age:{Age}";
         }
+
+        public override bool Equals (object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (this.GetHashCode() != obj.GetHashCode())
+            {
+                return false;
+            }
+
+            Person other = (Person)obj;
+
+            if (!base.Equals(other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(Name, null)) 
+            {
+                return ReferenceEquals(other.Name, null);
+            }
+            return Name.Equals(other.Name);
+        }
+
+        /// <summary>
+        /// GetHashCode() should not change over the life of the object. This only works 
+        /// when values used within the hashCode are immutable. This object does *not* 
+        /// keep a consistent HashCode over the lifetime of the object since the variables 
+        /// upon which it's based (Name) is mutable.
+        /// </summary>
+        public override int GetHashCode()
+        {
+            int hashCode = base.GetHashCode();
+            if (Name != null) {
+                hashCode ^= Name.GetHashCode();
+            }
+            return hashCode;
+        }
+
+        public static bool operator ==(Person lhs, Person rhs) 
+        {
+            if (ReferenceEquals(lhs, null)) // Don't call == or you'll get into infinite recursion.
+            {
+                // Return true if both sides are null.
+                return ReferenceEquals(rhs, null);
+            }
+            return lhs.Equals(rhs);
+        }
+        
+        public static bool operator !=(Person lhs, Person rhs)
+        {
+            return !(lhs == rhs);
+        }
+
 
         #endregion Object Overrides
     }
