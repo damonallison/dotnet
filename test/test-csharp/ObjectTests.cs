@@ -142,12 +142,14 @@ namespace DamonAllison.CSharpTests
         public void ExplicitInterfaceImplementation()
         {
             Person p = new Person();
-            ((ILogable)p).Log();
 
-            // Note that LogToDB is an extension method in ILogablExtensions. 
+            
+            p.LogToDB();
+
+            // Note that LogToDB is an extension method in ILogableExtensions. 
             // Extension methods work with interfaces in the same way they work
             // with concrete types.
-            ((ILogable)p).LogToDB();
+            ((ILogable)p).Log();
         }
     }
 }

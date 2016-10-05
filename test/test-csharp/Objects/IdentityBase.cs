@@ -44,9 +44,23 @@ namespace DamonAllison.CSharpTests.Objects
         /// </summary>
         public abstract string Name { get; }
 
-
         #region ILoggable
 
+        /// <summary>
+        /// Explicit interface implementation requires the caller cast an
+        /// object to the interface reference before calling a member.
+        /// 
+        /// In our object hierarchy, ILoggable is explicitly implemented
+        /// by IdentityBase. Therefore, you must cast all objects to ILoggable
+        /// to log them. Any member explicitly implemented is not added to the 
+        /// type's declaration space.
+        /// 
+        /// Explicit interface implementation is preferred when the interface's 
+        /// members are not essential to the object.
+        ///   
+        /// Favor explicit implementations when possible to reduce the type's 
+        /// footprint.
+        /// </summary>
         void ILogable.Log() 
         {
             Console.WriteLine($"{DateTime.UtcNow.ToString("s")} : {this}");

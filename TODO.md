@@ -1,9 +1,14 @@
 # TODO
 
+## Suggestions
+
+* `dotnet test` verbose output. 
+### `dotnet test` 
+
 ## Reading 
 
 * Essential C#.
-    * Start @ 351 - Value types.
+    * Start @ 360 - Value types.
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
