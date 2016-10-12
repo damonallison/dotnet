@@ -107,7 +107,8 @@ namespace DamonAllison.CSharpTests.Objects
         ///   the method return to enforce this constraint.
         /// 
         /// * GetHashCode() should include base.GetHashCode as part 
-        ///   of it's calculation.
+        ///   of it's calculation when <code>base</code> overrides 
+        ///   GetHashCode().
         /// </summary>
         public override bool Equals (object obj)
         {

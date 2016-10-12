@@ -22,6 +22,9 @@ namespace DamonAllison.CSharpTests
                 FirstName = "Damon", 
                 LastName = "Allison"
             };
+
+            // The default constructor was called, therefore 
+            // the object should have obtained a new identifier.
             Assert.True(p.Id > 0);
             Assert.Equal(Person.NextId, p.Id + 1);
         }
@@ -48,6 +51,9 @@ namespace DamonAllison.CSharpTests
             Assert.Equal(2, family.Count);
         }
 
+        /// <summary>
+        /// <code>Capitalize</code> is defined in StringExtensions.cs
+        /// </summary>
         [Fact]
         public void ExtensionMethodTest()
         {
@@ -59,6 +65,9 @@ namespace DamonAllison.CSharpTests
         /// Conversion operators (implicit or explicit) allow you to convert
         /// a type (A) to another type (B) where the two types are not part 
         /// of an inheritance hierarchy.
+        /// 
+        /// Here, an explicit conversion operator (string) is defined for 
+        /// person. 
         /// </summary>
         [Fact]
         public void ConversionOperatorTest() 
@@ -68,23 +77,38 @@ namespace DamonAllison.CSharpTests
             Assert.Equal("Test User", s);
         }
 
+        /// <summary>
+        /// The class hierarchy in this example is:
+        /// 
+        /// IIdentity
+        ///   IdentityBase
+        ///     Person
+        ///       Employee
+        /// </summary>
         [Fact]
         public void InheritanceTest()
         {
             Employee e = new Employee(1, "Damon", "Allison", 20, "allidam");
             Assert.IsAssignableFrom<Employee>(e);
             Assert.IsAssignableFrom<Person>(e);
+            Assert.IsAssignableFrom<IdentityBase>(e);
             Assert.IsAssignableFrom<IIdentity>(e);
 
             Person p = e;
-            IIdentity i = p;
+            IdentityBase ib = p;
+            IIdentity i = ib;
             Assert.Equal("Allison, Damon", e.Name);
             Assert.Equal("Allison, Damon", p.Name);
-            Assert.Equal(p.Id, i.Id);
+            Assert.Equal("Damon Allison", (string)p);
+
+            Assert.Equal(e.Id, p.Id);
+            Assert.Equal(p.Id, ib.Id);
+            Assert.Equal(ib.Id, i.Id);
 
             // Note that we have three references to the same object. 
             Assert.True(Object.ReferenceEquals(e, p));
             Assert.True(Object.ReferenceEquals(p, i));
+            Assert.True(Object.ReferenceEquals(i, ib));
 
             // `is` determines if an object is of a given type. Generally, you want
             // to avoid having to downcast an object. You should be able to work with 
@@ -93,15 +117,24 @@ namespace DamonAllison.CSharpTests
             // type you are looking for.
             Assert.True(p is IIdentity);
             Assert.True(p is IdentityBase);
-            Assert.NotNull(p as Employee);
+            Assert.NotNull(p as Employee); // Downcast. This should be avoided.
 
             // `as` goes a step beyond `is`. If the object is of a given type, it will
             // convert the type and return a reference to the object as the target type
             // or `null` if the cast is not valid.
             //  
             // C#'s' type checker is smart enough to know that p (Person) cannot be converted
-            // to a string. Therefore, we cast to `object` to fool the type checker.      
-            Assert.Null((object)p as string);  
+            // to a string. Therefore, we cast to `object` to fool the type checker.
+
+            Assert.Equal("Damon Allison", (string)p);
+            Assert.Equal("Damon Allison", (string)e);
+
+            object obj = (object)p;
+            Assert.IsAssignableFrom<Employee>(obj);
+            Assert.NotNull(obj as Employee);
+            Assert.NotNull(obj as Person);
+            Assert.NotNull(obj as IdentityBase);
+            Assert.NotNull(obj as IIdentity);
         }
 
         /// <summary>
@@ -115,12 +148,15 @@ namespace DamonAllison.CSharpTests
         {
             // Employee and person both derive from AbstractBase, therefore 
             // they both will contain unique identifiers
-            Person one = new Person("Damon", "Allison");
-            Employee two = new Employee(1, "Damon", "Allison", 20, "allidam");
-            Assert.True(one.Id > 0);
-            Assert.True(two.Id == one.Id + 1);
-            Assert.True(Person.NextId == two.Id + 1);
 
+            // Id is not specified, therefore IdentityBase's NextId will
+            // be assigned.  
+            Person one = new Person("Damon", "Allison");
+            Assert.True(one.Id > 0);
+
+            // Specifies an Id. 
+            Employee two = new Employee(1, "Damon", "Allison", 20, "allidam");
+            Assert.Equal(1, two.Id);
         }
 
         /// <summary>

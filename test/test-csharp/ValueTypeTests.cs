@@ -20,7 +20,7 @@ namespace DamonAllison.CSharpTests
     /// The recommended guidance is 16 bytes or less.
     /// There are two categories of value types : enums and structs.
     /// 
-    /// Important : Immutability
+    /// Immutability:
     /// 
     /// Value types should be immutable since boxing and unboxing will 
     /// occur on value types. It is not immediately obvious in many cases

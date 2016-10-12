@@ -137,7 +137,7 @@ namespace DamonAllison.CSharpTests.Objects
         /// GetHashCode() should not change over the life of the object. This only works 
         /// when values used within the hashCode are immutable. This object does *not* 
         /// keep a consistent HashCode over the lifetime of the object since the variables 
-        /// upon which it's based (Name) is mutable.
+        /// upon which it's based (Name) are mutable. 
         /// </summary>
         public override int GetHashCode()
         {
@@ -148,6 +148,17 @@ namespace DamonAllison.CSharpTests.Objects
             return hashCode;
         }
 
+        /// <summary>
+        /// Operator overloading allows you to treat a reference type as a primitive
+        /// type. 
+        /// 
+        /// Operator overloading is simply syntactic sugar for calling a method 
+        /// on a type (like Equals()). It is more explicit to call a method 
+        /// rather than rely on using operators. Operators are not implemented 
+        /// consistenly across all types, therefore it is better to be safe
+        /// and define concrete methods on types rather than relying on 
+        /// operators.
+        /// </summary>
         public static bool operator ==(Person lhs, Person rhs) 
         {
             if (ReferenceEquals(lhs, null)) // Don't call == or you'll get into infinite recursion.
