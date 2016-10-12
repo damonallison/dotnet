@@ -8,11 +8,14 @@
 ## Reading 
 
 * Essential C#.
-    * Start @ 402 - Well formed types.
+    * Start @ Chapter 10 - 433  - Exception Handling.
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
     > "Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware.
+* Think : With MS OSS's strategy, what are the technical and community differences between .NET and Java? 
+
+*  
 
 ## Projects
 

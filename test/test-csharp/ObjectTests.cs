@@ -213,5 +213,14 @@ namespace DamonAllison.CSharpTests
             Assert.False(c == p);
             Assert.True(c != p);            
         }
+        [Fact]
+        public void LazyInitialization() {
+            Lazy<Person> lazy = new Lazy<Person>(() => {
+                return new Person("Damon", "Allison");
+            });
+            Assert.False(lazy.IsValueCreated);
+            Assert.Equal("Damon", lazy.Value.FirstName);
+            Assert.True(lazy.IsValueCreated);
+        }
     }
 }

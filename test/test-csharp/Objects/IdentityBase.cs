@@ -5,7 +5,7 @@ namespace DamonAllison.CSharpTests.Objects
     /// <summary>
     /// Provides an abstract base for dealing with identity.
     /// </summary>
-    public abstract class IdentityBase : IIdentity, ILogable
+    public abstract class IdentityBase : IIdentity, ILogable, IDisposable
     {  
         public static int NextId { get; private set; } = 1;
         /// <summary>
@@ -89,7 +89,48 @@ namespace DamonAllison.CSharpTests.Objects
         
         #endregion ILoggable
 
+        #region IDisposable
+        
+        public void Dispose() {
+            // If base implements IDisposable, call it's dispose()
+            // base.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this); // no need for finalization, this object is already disposed.
+        }
+
+        public void Dispose(bool disposing) {
+
+
+            //
+            // Only close unmanaged objects if we are being deterministically
+            // disposed (via a call to .Dispose() or using {}).
+            // If `disposing = false`, we are being called from a finalizer.
+            // 
+            // The managed object's finalizer will be invoked and cleaned up 
+            // as part of it's finalization.
+            //
+
+            if (disposing) {
+                // Close unmanaged objects.
+            }
+            // Cleanup other resources used by this class.
+        }
+
+        #endregion IDisposable
         #region Object
+
+        /// <summary>
+        /// Object finalizers allow you to clean up unmanaged resources 
+        /// you may have opened which are associated with the instance.
+        /// 
+        /// You do *not* have control of when the finalizer executes.
+        /// 
+        /// Finalization happens on a GC thread - therefore do *not* 
+        /// throw exceptions from finalizers.
+        /// </summary>
+        ~IdentityBase() {
+            Dispose(false);
+        }
 
         public override string ToString() 
         {

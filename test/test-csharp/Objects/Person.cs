@@ -160,7 +160,7 @@ namespace DamonAllison.CSharpTests.Objects
         /// operators.
         /// </summary>
         public static bool operator ==(Person lhs, Person rhs) 
-        {
+        {            
             if (ReferenceEquals(lhs, null)) // Don't call == or you'll get into infinite recursion.
             {
                 // Return true if both sides are null.
