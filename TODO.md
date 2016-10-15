@@ -8,7 +8,7 @@
 ## Reading 
 
 * Essential C#.
-    * Start @ Chapter 10 - 445  - Exception Handling.
+    * Start @ Chapter 10 - 467 - Generics
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
