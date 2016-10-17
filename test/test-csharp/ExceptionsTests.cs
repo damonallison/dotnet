@@ -5,20 +5,22 @@ using Xunit;
 namespace DamonAllison.CSharpTests 
 {
     /// <summary>
-    /// An example of a custom exception. In general, a custom exception allows you to:
+    /// An example of a custom exception. 
+    /// 
+    /// In general, a custom exception allows you to:
     /// 
     /// 1. Associate state with an exception.
-    ///  
-    /// TODO: 
-    /// * Exception conditionals.
-    /// * 
+    /// 2. Give an exception a custom, meaningful name.
     /// 
     /// Exception guidelines:
     /// * Only catch (swallow) exceptions you can handle.
     /// * Allow unexpected exceptions to the top of the stack. Don't handle them (or log them) too low.
     /// * Prefer `throw` to `throw ex` since `throw` will keep the initial call stack in tact.
-    ///  
-    /// ////// </summary>
+    /// * The only time you want to rethrow an exception is when you catch an underlying exception
+    ///   and throw a more meaningful (custom) exception. When you throw a new exception, ensure
+    ///   the original exception is set in the `InnerException` property of the newly thrown 
+    ///   exception.
+    /// </summary>
     internal class ArgumentTooShortException : System.ArgumentException
     {
         public int Length { get; private set; }
@@ -27,7 +29,9 @@ namespace DamonAllison.CSharpTests
         /// Since constructors are not automatically inherited when subclassing, you must 
         /// define your own constructors. When dealing with exceptions, you typically want 
         /// to override all base exception constructors. Obviously you could only 
-        /// override a particular subset of constructors if you want. 
+        /// override a particular subset of constructors if you prefer. You'd want
+        /// to override a smaller subset of constructors to force the user to add
+        /// state to the exception.
         /// 
         /// This exception does *not* override all constructors since we have 
         /// required state to set on the exception (Length).
@@ -85,11 +89,18 @@ namespace DamonAllison.CSharpTests
     {
 
         /// <summary>
-        ///  When catching exceptions, the most specific catch block should proceed
+        /// When catching exceptions, the most specific catch block must proceed
         /// more general catch blocks. The first matching block will be invoked.
+        /// The C# compiler detects when exception blocks cannot be invoked due to 
+        /// more general exceptions being handled prior to more specific exceptions.
+        /// 
+        /// Exception conditional blocks allow the associated catch to be invoked only
+        /// when the condition is met. Do *not* throw an exception from the conditional 
+        /// block. Also, make sure the condition is consistent in what it returns to 
+        /// make debugging easier.
         /// </summary>
         [Fact]
-        public void TestExceptionHandling() 
+        public void TestExceptionConditionalBlocks() 
         {
             try
             {
@@ -119,6 +130,11 @@ namespace DamonAllison.CSharpTests
             }            
         }
 
+        /// <summary>
+        /// This test highlights the fact that more derived exceptions must be 
+        /// caught before more specific exceptions. The C# compiler will enforce
+        /// this fact.
+        /// </summary>
         [Fact]
         public void TestCatchMostSpecific()
         {
@@ -161,8 +177,8 @@ namespace DamonAllison.CSharpTests
                     System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(aggEx.InnerException).Throw();
                 });
                 Assert.IsType<NullReferenceException>(ex);
+                return;
             }
         }
     }
-
 }
