@@ -1,9 +1,42 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace DamonAllison.CSharpTests
 {
+
+    public class ContactMethod {
+        public int Id { get; set; }
+    }
+    public class EmailContact : ContactMethod {
+        public string EmailAddress { get; set; }
+    }
+    public class PhoneContact : ContactMethod {
+        public string PhoneNumber { get; set; }
+    }
+
+    /// <summary>
+    /// "out T" allows the type parameter to be covariant. It allows you to return a base type
+    /// (say, List<object> when the type parameter T is derived from object (say, string)).
+    /// 
+    /// The compiler allows you to return base types for a type param only when "out" is specified. 
+    /// Out signals to the compiler that T is only used for return values, never as input. This 
+    /// means the type conversion is always safe.
+    ///  
+    /// Covariance allows you to return the base class for a generic type parameter.
+    /// For example, you could return List<Object> from a covariant function where 
+    /// the actual value is List<string>.
+    /// </summary>
+    public interface IReadOnlyPair<out T> {
+        T First { get; }
+        T Second { get; }
+    }
+    public class Pair<T> : IReadOnlyPair<T> {
+        public T First { get; set; }
+        public T Second { get; set; }
+    }
+    
     /// <summary>
     /// Interfaces can be declared with generic type parameters.
     /// 
@@ -114,9 +147,44 @@ namespace DamonAllison.CSharpTests
         }
 
         /// <summary>
-        /// Tuple is a great example of the use of generics. There are 9 different Typle classes defined, 
-        /// each with a differing number of type parameters. This allows you to create essentially variable
-        /// length tuples.
+        /// Covariant types are two types where each type can be converted into the other
+        /// without the loss of type safety.
+        /// 
+        /// If types X and Y are covariant, you can convert one into the other without loss
+        /// of type safety.
+        /// 
+        /// Generic collections are not covariant. For example, <c>List<string></c> is not
+        /// covariant with <c>String<object></c>, even tho string derives from object. 
+        /// 
+        /// Why are these two types not covariant? You can't cast List<object> into List<string>
+        /// safely. You could insert an int into List<object>, which would cause the cast to fail.
+        /// 
+        /// You can enable covariance with the `out` type parameter modifier. If an object only
+        /// comes "out" (returned) from a type and never going "into" 
+        /// </summary>
+        [Fact]
+        public void CovariantTest() {
+
+            Pair<EmailContact> contacts = new Pair<EmailContact> {
+                First = new EmailContact { Id = 1, EmailAddress = "a@a.com" },
+                Second = new EmailContact { Id = 2, EmailAddress = "b@b.com" }
+            };
+
+            // This assignment would fail if not for the covariant (out T) type parameter.
+            // By default, IReadOnlyPair<Email> and Pair<EmailContact> are not convertable.
+            IReadOnlyPair<ContactMethod> baseContacts = contacts;
+
+            Assert.Equal(1, baseContacts.First.Id);
+            Assert.Equal(2, baseContacts.Second.Id);
+        }
+
+        /// <summary>
+        /// Tuple is a great example of the use of generics. 
+        /// There are 9 different Typle classes defined, 
+        /// each with a differing number of type parameters. 
+        /// 
+        /// One override of tuples allows you to pass in another tuple. 
+        /// This allows you to create essentially variable length tuples.
         /// </summary>
         [Fact]
         public void TupleTest() {
