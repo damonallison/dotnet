@@ -17,16 +17,16 @@ namespace DamonAllison.CSharpTests
     }
 
     /// <summary>
-    /// "out T" allows the type parameter to be covariant. It allows you to return a base type
-    /// (say, List<object> when the type parameter T is derived from object (say, string)).
+    /// Covariance allows you to return a more generic type than was declared. For example,
+    /// a covariant function can return List<object> for a type of List<string>.
     /// 
     /// The compiler allows you to return base types for a type param only when "out" is specified. 
     /// Out signals to the compiler that T is only used for return values, never as input. This 
     /// means the type conversion is always safe.
-    ///  
-    /// Covariance allows you to return the base class for a generic type parameter.
-    /// For example, you could return List<Object> from a covariant function where 
-    /// the actual value is List<string>.
+    /// 
+    /// Only generic interfaces can be covariant! Generic classes can not be covariant.
+    /// The "source" and "target" of generic type conversations must be between two reference
+    /// types. You cannot return List<Object> from List<int> since int is a value type.
     /// </summary>
     public interface IReadOnlyPair<out T> {
         T First { get; }
@@ -35,6 +35,28 @@ namespace DamonAllison.CSharpTests
     public class Pair<T> : IReadOnlyPair<T> {
         public T First { get; set; }
         public T Second { get; set; }
+    }
+
+    /// <summary>
+    /// This is an example of a contravariant interface. Contravariant objects 
+    /// allow you to use a more derived type in the place of a more generic type.
+    /// 
+    /// For example, you can send in "EmailContact" where a "ContactMethod" is required.
+    ///
+    /// <code>
+    /// IComparer<ContactMethod> comparer = new ContactComparer();
+    /// 
+    /// // This is only allowed because IComparer is contravariant.
+    /// IComparer<EmailContact> emailComparer = comparer;
+    /// </code>
+    /// </summary>
+    public interface IComparer<in T> {
+        bool Compare(T t1, T t2);
+    }
+    public class ContactComparer<T> : IComparer<T> where T: ContactMethod {
+        public bool Compare(T first, T second) {
+            return first.Id < second.Id; 
+        }
     }
     
     /// <summary>
@@ -158,9 +180,12 @@ namespace DamonAllison.CSharpTests
         /// 
         /// Why are these two types not covariant? You can't cast List<object> into List<string>
         /// safely. You could insert an int into List<object>, which would cause the cast to fail.
+        /// C# does not allow you to return List<object> from a List<string> variable because 
+        /// they are not type compatible.
         /// 
         /// You can enable covariance with the `out` type parameter modifier. If an object only
-        /// comes "out" (returned) from a type and never going "into" 
+        /// comes "out" (returned) from a type and never going "into". This tells the compiler 
+        /// that a covariant type conversion is allowable.
         /// </summary>
         [Fact]
         public void CovariantTest() {
@@ -176,6 +201,30 @@ namespace DamonAllison.CSharpTests
 
             Assert.Equal(1, baseContacts.First.Id);
             Assert.Equal(2, baseContacts.Second.Id);
+        }
+
+        /// <summary>
+        /// Contravariant allows you to pass a more derived type to a function expecting a base 
+        /// type. For example, you could pass List<string> into a function which expects List<Object>. 
+        ///
+        /// Where covariance allows you to return a more generic type out than was specified, 
+        /// contravariance allows you to use a more specific type in than was specified.
+        /// 
+        /// In this example, we are able to convert IComparer<ContactMethod> to IComparer<EmailContact> 
+        /// because EmailMethod is more derived than ContactMethod.
+        /// </summary>
+        [Fact]
+        public void ContravariantTestVoid() {
+            EmailContact ec = new EmailContact { Id = 1 };
+            EmailContact ec2 = new EmailContact { Id = 2 };
+
+            IComparer<ContactMethod> comparer = new ContactComparer<ContactMethod>();
+            Assert.True(comparer.Compare(ec, ec2));
+
+            // This is allowed because IComparer is contravariant of T.
+            IComparer<EmailContact> emailComparer = comparer;
+            Assert.True(emailComparer.Compare(ec, ec2));
+            
         }
 
         /// <summary>
