@@ -17,6 +17,17 @@ namespace DamonAllison.CSharpTests
     }
 
     /// <summary>
+    /// 
+    /// Covariance and contravariance:
+    /// 
+    /// * If types are only used as input parameters, decorate the type declaration with "in".
+    ///   This will allow you to send in a more specific type (List<string>) to a function which 
+    ///   accepts a more generic type (List<object>).
+    /// 
+    /// * If types are only used as output parameters, decorate the type declaration with "out".
+    ///   This will allow you to return more specific types (List<string>) from a function which 
+    ///   returns a more generic type (List<object>).
+    /// 
     /// Covariance allows you to return a more generic type than was declared. For example,
     /// a covariant function can return List<object> for a type of List<string>.
     /// 
@@ -42,6 +53,9 @@ namespace DamonAllison.CSharpTests
     /// allow you to use a more derived type in the place of a more generic type.
     /// 
     /// For example, you can send in "EmailContact" where a "ContactMethod" is required.
+    /// 
+    /// Contravariant types are defined with the "in" keyword. The compiler will 
+    /// enforce the fact that an "in" parameter will never be returned from the function.
     ///
     /// <code>
     /// IComparer<ContactMethod> comparer = new ContactComparer();
