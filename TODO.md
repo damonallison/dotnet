@@ -8,7 +8,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ Chapter 12 / 505 - Delegates and Lambda Expressions
+    * Start @ 588  - Collections / Standard Query Operators
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem

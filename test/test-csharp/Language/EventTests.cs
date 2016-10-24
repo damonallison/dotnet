@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace DamonAllison.CSharpTests
+namespace DamonAllison.CSharpTests.Language
 {
     /// <summary>
     /// Events are based on MulticastDelegate.
