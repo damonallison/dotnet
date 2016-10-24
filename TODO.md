@@ -2,10 +2,10 @@
 
 ## Suggestions
 
-* `dotnet test` verbose output. 
-### `dotnet test` 
+* `dotnet test` verbose output.
+### `dotnet test`
 
-## Reading 
+## Reading
 
 * Essential C#.
     * Start @ Chapter 12 / 505 - Delegates and Lambda Expressions
@@ -14,7 +14,7 @@
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
     > "Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware.
-* Think : With MS OSS's strategy, what are the technical and community differences between .NET and Java? 
+* Think : With MS OSS's strategy, what are the technical and community differences between .NET and Java?
 * A way to reformat a comment block with a max line length of 80.
 
 ## Projects
@@ -39,7 +39,9 @@
 * async / await
 * IEnumerable / LINQ
 * Core interface types IEquatable, IFormattable
+* System.Generic.Collections
 * Serialization (`ISerializable` and `[Serializable]`)
+* Rx
 
 ## Unit testing
 
@@ -48,7 +50,7 @@
     * Does `xUnit` have Xcode's concept of expectations / async execution?
     * Read up on xUnit `Fact` and `Theory` attributes.
 
-* How to print the name of each test start / execution / end so any `Console.WriteLine` statements are part of the output. 
+* How to print the name of each test start / execution / end so any `Console.WriteLine` statements are part of the output.
 
 ## Tooling
 
@@ -62,5 +64,5 @@
 * Resource groups.
 * How to require SSL?
 * Logging / diagnostics.
-* 
+*
 
