@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
+using DamonAllison.CSharpTests.Objects;
+
 namespace DamonAllison.CSharpTests {
 
     /// <summary>
@@ -16,8 +18,15 @@ namespace DamonAllison.CSharpTests {
     /// </summary>
     public class CollectionTests {
 
+        /// <summary>
+        /// Collection initializers are syntactic shortcuts which allow you
+        /// to populate a collection during initialization by providing
+        /// a set of values.
+        /// </summary>
         [Fact]
         public void CollectionInitializerTests() {
+
+            string firstName = "test";
 
             // Note the constructor parens are optional (omitted here)
             // when using a default constructor.
@@ -27,7 +36,8 @@ namespace DamonAllison.CSharpTests {
                 "kari",
                 "grace",
                 "lily",
-                "cole"
+                "cole",
+                firstName
             };
             Assert.True(names.Any(x => x.Equals("damon")));
 
@@ -94,5 +104,50 @@ namespace DamonAllison.CSharpTests {
             Assert.Equal(new List<int> { 2, 1 }, items);
         }
 
+        /// <summary>
+        /// System.Linq provides extension methods for working with IEnumerable
+        /// instances. These extension methods are called "standard query operators"
+        /// since they provide querying capability over an IEnumerable.
+        ///
+        /// This example shows a few of the more common
+        /// </summary>
+        [Fact]
+        public void StandardQueryOperators() {
+            IList<Employee> employees = new List<Employee> {
+                new Employee(1, "Damon", "Allison", null, "DAMON"),
+                new Employee(2, "Cole", "Allison", null, "COLE"),
+                new Employee(3, "Grace", "Allison", null, "GRACE"),
+            };
+
+            // Filter. Note that "Where" lazily evaluates the collection.
+            // Only when .Count() is called is the list evaluated.
+            Assert.Equal(1, employees.Where(e =>
+                e.FirstName.ToLowerInvariant() == "cole").Count());
+
+            // Map. (.ToList() forces evaluation here).
+            var expected = new List<string> { "Damon", "Cole", "Grace" };
+            var actual = employees.Select(e => e.FirstName).ToList();
+            Assert.True(expected.SequenceEqual(actual));
+
+            // We could use anonymous types to project the list into a custom
+            // type.
+            var names = employees.Select(e => new { e.FirstName, e.LastName });
+            Assert.True(expected.SequenceEqual(names.Select(n => n.FirstName)));
+
+            // Any() All()
+            Assert.True(employees.Any(e => e.FirstName == "Cole"));
+            Assert.True(employees.All(e => !string.IsNullOrWhiteSpace(e.FirstName)));
+
+            // Parallelization
+            actual = employees.AsParallel().Select(e => e.FirstName).ToList();
+            Assert.True(expected.SequenceEqual(actual));
+
+            // Sorting
+            expected = new List<string> { "Cole", "Damon", "Grace" };
+            actual = employees.OrderBy(e => e.FirstName).Select(e => e.FirstName).ToList();
+            Assert.True(expected.SequenceEqual(actual));
+
+
+        }
     }
 }

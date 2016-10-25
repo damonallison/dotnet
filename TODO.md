@@ -8,7 +8,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ 588  - Collections / Standard Query Operators
+    * Start @ 602 - query operators.
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
