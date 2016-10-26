@@ -8,7 +8,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ 602 - query operators.
+    * Start @ 646 - custom collections
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
@@ -42,6 +42,9 @@
 * System.Generic.Collections
 * Serialization (`ISerializable` and `[Serializable]`)
 * Rx
+* Data access.
+    * What happened with C#'s LINQ to SQL syntax (`select` in the language).
+    * Is there heavy use of ORMs?
 
 ## Unit testing
 
