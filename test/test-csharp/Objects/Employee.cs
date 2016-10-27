@@ -9,9 +9,9 @@ namespace DamonAllison.CSharpTests.Objects
         /// <summary>
         /// Constructors are not overridable. If there is not a default
         /// constructor on the base class, the derived class must specify
-        /// which base constructor to call. 
+        /// which base constructor to call.
         /// </summary>
-        public Employee(int id, string firstName, string lastName, int? age, string lanId) 
+        public Employee(int id, string firstName, string lastName, int? age, string lanId)
             : base(id, firstName, lastName, age)
         {
             LanId = lanId;
@@ -19,8 +19,8 @@ namespace DamonAllison.CSharpTests.Objects
 
         /// <summary>
         /// The `sealed` modifier prevents further overriding of a virtual member.
-        /// 
-        /// Note that any member decorated `override` is inherently `virtual` 
+        ///
+        /// Note that any member decorated `override` is inherently `virtual`
         /// </summary>
         public override sealed string Name
         {
@@ -29,8 +29,10 @@ namespace DamonAllison.CSharpTests.Objects
                 return $"{LastName}, {FirstName}";
             }
         }
+
+
         #region Object Overrides
-        
+
         public override string ToString() {
             return $"{base.ToString()} LanId : {LanId}";
         }
@@ -64,9 +66,9 @@ namespace DamonAllison.CSharpTests.Objects
         }
 
         /// <summary>
-        /// GetHashCode() should not change over the life of the object. This only works 
-        /// when values used within the hashCode are immutable. This object does *not* 
-        /// keep a consistent HashCode over the lifetime of the object since the variables 
+        /// GetHashCode() should not change over the life of the object. This only works
+        /// when values used within the hashCode are immutable. This object does *not*
+        /// keep a consistent HashCode over the lifetime of the object since the variables
         /// upon which it's based (Name) is mutable.
         /// </summary>
         public override int GetHashCode()
@@ -78,7 +80,7 @@ namespace DamonAllison.CSharpTests.Objects
             return hashCode;
         }
 
-        public static bool operator ==(Employee lhs, Employee rhs) 
+        public static bool operator ==(Employee lhs, Employee rhs)
         {
             if (ReferenceEquals(lhs, null)) // Don't call == or you'll get into infinite recursion.
             {
@@ -87,7 +89,7 @@ namespace DamonAllison.CSharpTests.Objects
             }
             return lhs.Equals(rhs);
         }
-        
+
         public static bool operator !=(Employee lhs, Employee rhs)
         {
             return !(lhs == rhs);

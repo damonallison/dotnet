@@ -52,5 +52,10 @@ namespace DamonAllison.CSharpTests.BCL {
             dict.Add("lily", "lily allison"); // insert by key
             Assert.Equal(dict["damon"], "damon allison"); // retrieval by key
         }
+
+        [Fact]
+        public void CustomComparer() {
+            // Provides the 
+        }
     }
 }

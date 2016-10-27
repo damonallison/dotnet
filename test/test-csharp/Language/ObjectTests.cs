@@ -125,7 +125,7 @@ namespace DamonAllison.CSharpTests.Language
             //
             // C#'s' type checker is smart enough to know that p (Person) cannot be converted
             // to a string. Therefore, we cast to `object` to fool the type checker.
-
+            string s = (string)p;
             Assert.Equal("Damon Allison", (string)p);
             Assert.Equal("Damon Allison", (string)e);
 
