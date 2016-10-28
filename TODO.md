@@ -8,7 +8,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ 659 - custom collections
+    * Start @ 683 - reflection
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem

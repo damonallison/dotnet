@@ -100,9 +100,15 @@ namespace DamonAllison.CSharpTests.BCL {
         }
 
 
-        // A custom iterator allows the caller to user "foreach" and interate a collection
-        // without needing to know the internals of how the collection is implemented.
 
+        /// <summary>
+        /// A custom iterator allows the caller to user "foreach" and interate a collection
+        /// without needing to know the internals of how the collection is implemented.
+        ///
+        /// A custom enumerator class is created by the compiler when "yield" is used. This
+        /// language convenience saves the programmer from having to create the IEumerator
+        /// themselves.
+        /// </summary>
         private class Pair<T> : IEnumerable<T> {
             public T First { get; set; }
             public T Second { get; set; }
