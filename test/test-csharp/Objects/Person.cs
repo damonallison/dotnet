@@ -13,7 +13,9 @@ namespace DamonAllison.CSharpTests.Objects
         ///
         /// Without an access modifier, members are private.
         /// </summary>
-        public int? Age { get; set; } = null;
+        public int? Age { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
 
         public Person() : this("First", "Last")
         {
@@ -76,24 +78,6 @@ namespace DamonAllison.CSharpTests.Objects
 
         #endregion
 
-        private string _firstName;
-        public string FirstName
-        {
-            get
-            {
-                return _firstName;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
-                _firstName = value;
-            }
-        }
-        public string LastName { get; set; }
-
         /// <summary>
         /// Virtual allows derived classes to override the property / method.
         ///
@@ -140,11 +124,24 @@ namespace DamonAllison.CSharpTests.Objects
             {
                 return false;
             }
-            if (ReferenceEquals(Name, null))
+
+            if (ReferenceEquals(FirstName, null))
             {
-                return ReferenceEquals(other.Name, null);
+                return ReferenceEquals(other.FirstName, null);
             }
-            return Name.Equals(other.Name);
+            if (!FirstName.Equals(other.FirstName))
+            {
+                return false;
+            }
+            if (ReferenceEquals(LastName, null))
+            {
+                return ReferenceEquals(other.LastName, null);
+            }
+            if (!LastName.Equals(other.LastName))
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -156,9 +153,10 @@ namespace DamonAllison.CSharpTests.Objects
         public override int GetHashCode()
         {
             int hashCode = base.GetHashCode();
-            if (Name != null) {
-                hashCode ^= Name.GetHashCode();
-            }
+            int prime = 31;
+
+            hashCode = hashCode * prime + (FirstName == null ? 0 : FirstName.GetHashCode());
+            hashCode = hashCode * prime + (LastName == null ? 0 : LastName.GetHashCode());
             return hashCode;
         }
 

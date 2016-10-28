@@ -46,6 +46,8 @@
     * What happened with C#'s LINQ to SQL syntax (`select` in the language).
     * Is there heavy use of ORMs?
 
+* Object equality : Find a decent library to generate proper hash code / equality logic.
+
 ## Unit testing
 
 * Determine how to debug all .NET tests (not just a single test).

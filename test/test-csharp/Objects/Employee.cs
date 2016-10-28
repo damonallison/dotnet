@@ -74,9 +74,9 @@ namespace DamonAllison.CSharpTests.Objects
         public override int GetHashCode()
         {
             int hashCode = base.GetHashCode();
-            if (LanId != null) {
-                hashCode ^= LanId.GetHashCode();
-            }
+            int prime = 31;
+
+            hashCode = hashCode * prime + LanId == null ? 0 : LanId.GetHashCode();
             return hashCode;
         }
 

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace DamonAllison.CSharpTests.Objects
 {
@@ -148,6 +147,12 @@ namespace DamonAllison.CSharpTests.Objects
         ///   of the object, even if it's state changes. You should cache
         ///   the method return to enforce this constraint.
         ///
+        /// * All values used in "GetHashCode()" and thus "Equals()" must
+        ///   *not* change if the object is used in a hash-based data structure.
+        ///
+        ///   ** Make all properties immutable, or better yet just make the
+        ///      entire object immutable. **
+        ///
         /// * GetHashCode() should include base.GetHashCode as part
         ///   of it's calculation when <code>base</code> overrides
         ///   GetHashCode().
@@ -158,12 +163,14 @@ namespace DamonAllison.CSharpTests.Objects
             {
                 return false;
             }
-            return this.Id == ((IdentityBase)obj).Id;
+            IdentityBase other = (IdentityBase)obj;
+
+            return this.Id == other.Id;
         }
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return 31 * Id.GetHashCode();
         }
 
         /// <summary>

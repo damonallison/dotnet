@@ -55,7 +55,7 @@ namespace DamonAllison.CSharpTests.BCL {
 
         [Fact]
         public void CustomComparer() {
-            // Provides the 
+
         }
     }
 }
