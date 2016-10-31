@@ -3,7 +3,6 @@
 ## Suggestions
 
 * `dotnet test` verbose output.
-### `dotnet test`
 
 ## Reading
 
