@@ -35,6 +35,7 @@
 ## BCL
 
 * TPL
+    * Threads : how are they implemented?
 * async / await
 * IEnumerable / LINQ
 * Core interface types IEquatable, IFormattable
