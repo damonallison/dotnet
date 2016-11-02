@@ -7,7 +7,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ 683 - reflection
+    * Start @ 786 - asynchronous lambdas.
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
