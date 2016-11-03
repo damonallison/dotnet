@@ -7,7 +7,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ 786 - asynchronous lambdas.
+    * Start @ 803 - TPL - Parallel For
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem

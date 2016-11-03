@@ -14,17 +14,44 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
     ///
     /// * TPL : Task Parallel Library
     /// * PLINQ : Parallel LINQ
-    /// * TAP : Task based asynchronous programming (TAP)
-    /// * async / await : Language level support for tasks (TAP).
+    /// * TAP : Task based asynchronous programming (TAP) (async/await)
     ///
     /// TPL
     /// ---
     /// Tasks are run via a TaskScheduler. The scheduler abstracts the underlying
     /// thread pool and task execution, allowing it to optimize thread use.
     ///
-    /// Questions:
-    /// * What are "AppDomains" and how do Tasks relate to them?
+    /// TAP : Task-based Asynchronous Programming
+    /// -----------------------------------------
+    /// TAP provides library infrastructure and language support for asynchronous
+    /// programming.
     ///
+    /// TAP includes:
+    /// * Task : an object representing an asynchronous operation.
+    /// * async / await : C# language extensions which streamlines the use
+    ///   of asynchronous functions. async / await allows you to program
+    ///   using asynchronous methods as if they were synchronous. Handling
+    ///   results, thread context switching, and exception handling are all
+    ///   handled by the compiler and TAP framekwork.
+    ///
+    /// TAP was created to address key problems with asynchronous programming:
+    /// * Allow long running activities to happen without blocking the main thread.
+    /// * Optimize the use of threads (TaskScheduler).
+    /// * Handle thread synchronization seamlessly.
+    /// * Provide language support to make asynchronous programming feel synchronous
+    ///   and easy to use.
+    ///
+    /// Synchronization Context
+    /// -----------------------
+    /// Tasks are ran on a TaskScheduler. The TaskScheduler is created with a SynchronizationContext,
+    /// which guides how work is synchronized with the caller. The SynchronizationContext is
+    /// associated to a thread. For example, if a task is executed from a Windows UI thread,
+    /// the task's continuation work - the work which happens after 'await' - will
+    /// execute on the main thread.
+    ///
+    /// You generally do not need to create custom TaskSchedulers or set custom
+    /// SynchronizationContext(s) on threads, simply understand the TaskScheduler
+    /// and SynchronizationContext you are using.
     /// </summary>
     public class MultithreadingTests
     {
@@ -42,9 +69,10 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             // are thunks and do not return a value.
             ConcurrentBag<int> bag = new ConcurrentBag<int>();
 
+            DateTime start = DateTime.Now;
             // Run a thunk.
-            Task mainTask = Task.Run(() => {
-                Task.Delay(100); // TPL version of Thread.Sleep()
+            Task mainTask = Task.Run(async () => {
+                await Task.Delay(100); // TPL version of Thread.Sleep()
                 bag.Add(1);
             });
             mainTask.Wait();
@@ -52,11 +80,15 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             Assert.True(bag.ToList().Contains(1));
             Assert.Equal(1, bag.Count);
 
+            // Proves the task really took 100 ms.
+            Assert.True(DateTime.Now.AddMilliseconds(-100).Ticks > start.Ticks);
+
             // Run a func.
-            Task<int> result = Task.Run<int>(() => {
-                Task.Delay(100);
+            Task<int> result = Task.Run<int>(async () => {
+                await Task.Delay(100);
                 return 2;
             });
+
             bag.Add(result.Result); // .Result blocks and waits for completion.
             Assert.True(bag.ToList().Contains(2));
             Assert.Equal(2, bag.Count);
@@ -173,6 +205,89 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             Assert.Equal(10, t.Result);
         }
 
+        /// <summary>
+        /// Lambdas can be made async as well.
+        ///
+        /// async lambdas allow your lambdas to participate in TAP as
+        /// concrete methods would. Code can await on their result
+        /// rather than having to call .Wait() or .Result().
+        /// </summary>
+        [Fact]
+        public void AsychronousLambdas() {
+
+            Func<int, Task<int>> f = async (int x) => {
+                await Task.Delay(x);
+                return x;
+            };
+            Parallel.For(0, 100, (x) => {
+                Assert.Equal(x, f(x).Result);
+            });
+        }
+
+        /// <summary>
+        /// The result of an "await" call can be used as a normal return value.
+        ///
+        /// There are restrictions on when you can use an await's return value.
+        /// The type being returned must support a "GetAwaiter". Task<int>,
+        /// used below, supports .GetAwaiter(), allowing you to use the return
+        /// value from 'async'.
+        ///
+        /// Note that there is
+        /// </summary>
+        [Fact]
+        public async void AwatingForAReturnValue() {
+            Func<int, Task<int>> f = async (int x) => {
+                await Task.Delay(x);
+                return x;
+            };
+
+            Assert.Equal(100, await f(100));
+
+            // An example of setting an 'await result' to a variable.
+            int y = await f(200);
+            Assert.Equal(200, y);
+        }
+
+        /// <summary>
+        /// For fun, write an async version of Fibonacci.
+        /// </summary>
+        [Fact]
+        public void AsynchronousFibonacci() {
+
+            // Asynchronous fibonacci
+            Func<int, Task<int>> fib = null;
+            fib = new Func<int, Task<int>>(async x => {
+                if (x <= 2) {
+                    return await Task.Run(() => 1);
+                }
+                return await fib(x - 2) + await fib(x - 1);
+            });
+
+            // Prove the logic.
+            Assert.Equal(1, fib(1).Result);
+            Assert.Equal(1, fib(2).Result);
+            Assert.Equal(2, fib(3).Result);
+            Assert.Equal(3, fib(4).Result);
+            Assert.Equal(5, fib(5).Result);
+            Assert.Equal(8, fib(6).Result);
+
+            // Prove asynchronicity
+            Task<int> fib10 = fib(10);
+            Assert.False(fib10.IsCompleted); // it's running async!
+            fib10.Wait();
+            Assert.True(fib10.Result > 5);
+        }
+
+        [Fact]
+        public void ParallelLoops() {
+            int result = 0;
+            Parallel.For(0, 5, x => {
+                // Generally, do *not* mutate data structures from
+                // concurrent code!
+                Interlocked.Add(ref result, x);
+            });
+            Assert.Equal(10, result);
+        }
         /// <summary>
         /// The async / await pattern allows you to avoid "callback hell" by
         /// providing language level support for asynchronous operations.
