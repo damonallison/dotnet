@@ -7,7 +7,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ 803 - TPL - Parallel For
+    * Start @ 831 - Synchronization
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
@@ -70,4 +70,5 @@
 * How to require SSL?
 * Logging / diagnostics.
 *
+
 

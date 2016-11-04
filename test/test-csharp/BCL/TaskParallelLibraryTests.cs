@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
     /// SynchronizationContext(s) on threads, simply understand the TaskScheduler
     /// and SynchronizationContext you are using.
     /// </summary>
-    public class MultithreadingTests
+    public class TaskParallelLibraryTests
     {
         /// <summary>
         /// Shows how to run tasks with the default scheduler.
@@ -278,16 +279,136 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             Assert.True(fib10.Result > 5);
         }
 
+        /// <summary>
+        /// System.Threading.Tasks.Parallel provides parallel versions of
+        /// <c>for</c> and <c>foreach</c>.
+        /// </summary>
         [Fact]
         public void ParallelLoops() {
+
+            const int count = 100;
+
+            // "Happy path" parallel for.
             int result = 0;
-            Parallel.For(0, 5, x => {
+            Parallel.For(0, count, x => {
                 // Generally, do *not* mutate data structures from
                 // concurrent code!
-                Interlocked.Add(ref result, x);
+                Interlocked.Add(ref result, 1);
             });
-            Assert.Equal(10, result);
+            Assert.Equal(count, result);
+
+            // Exception handling with Parallel.For()
+            // All exceptions are gathered into an AggregateException.
+            try {
+                Parallel.For(0, count, x => {
+                    Console.WriteLine($"Iteration ({x})");
+                    throw new NotImplementedException();
+                });
+            }
+            catch (AggregateException aggEx) {
+                Assert.True(aggEx.InnerExceptions.Count > 1);
+            }
         }
+
+        /// <summary>
+        /// Parallel.For cancellation is handled in one of two ways:
+        ///
+        /// 1. Using a CancellationTokenSource from an exteral thread.
+        /// 2. By "break"ing from within the Parallel.For.
+        /// </summary>
+        [Fact]
+        public void ParallelForCancellationUsingToken() {
+            int iterations = 0;
+            bool cancelled = false;
+
+            CancellationTokenSource ts = new CancellationTokenSource();
+            ts.Token.Register(() => {
+                cancelled = true; // fires if the CancellationToken was cancelled.
+            });
+
+            ParallelOptions o = new ParallelOptions {
+                CancellationToken = ts.Token,
+                MaxDegreeOfParallelism = 100 // setting to 1 may help debugging.
+            };
+
+            // By default, Parallel.For is synchronous. Wrap it up in a task
+            // to fire it off async.
+            Task.Run(() => {
+                Parallel.For(0, 1000, o, x => {
+                    Interlocked.Increment(ref iterations);
+                    Task.Delay(x).Wait();
+                });
+            });
+
+            Task.Delay(100).Wait();
+            ts.Cancel();
+
+            Assert.InRange(iterations, 1, 500);
+            Assert.True(cancelled);
+        }
+
+        /// <summary>
+        /// There are two ways for a parallel for to cancel itself.
+        /// Both involve the <c>ParallelLoopState</c> object.
+        ///
+        /// .Stop() - no more iterations need to run.
+        /// .Break() - no more iterations with higher index values than the current need to run.
+        /// </summary>
+        [Fact]
+        public void ParallelForCancellationUsingOptions() {
+            int iterations = 0;
+
+            // By default, Parallel.For is synchronous. Wrap it up in a task
+            // to fire it off async.
+            ParallelLoopResult result = Parallel.For(0, 1000, (x, state) => {
+                Interlocked.Increment(ref iterations);
+                if (x == 10) {
+                    state.Break();
+                }
+                Task.Delay(5).Wait();
+            });
+            Assert.InRange(iterations, 10, 999); // somewhere less than 1000
+            Assert.False(result.IsCompleted);
+            Assert.Equal(10, result.LowestBreakIteration);
+        }
+
+        /// <summary>
+        /// Linq contains an .AsParallel() operation.
+        /// This is super convenient to parallelize your queries.
+        ///
+        ///<see cref="System.Linq.ParallelEnumerable" />.
+        ///
+        /// </summary>
+        [Fact]
+        public void ParallelLinqQueries() {
+
+            var l = new List<int> { 5, 2, 3, 4, 1 };
+
+            Assert.Equal(30, l.AsParallel().Sum(x => x * 2));
+
+            var sorted = l.AsParallel().OrderBy(x => x).ToList();
+            Assert.Equal(sorted, new List<int> { 1, 2, 3, 4, 5 });
+
+            // Exceptions in PLINQ queries are handled in the same way as
+            // parallel loop and the TPL : AggregateException
+
+            // PLINQ queries can also be cancelled with a CancellationToken.
+            // Example:
+            // TaskCancellationSource ts = new TaskCancellationSource();
+            // <c>obj.AsParallel().WithCancellation(ts.Token).Select()</c>
+            try {
+                l.AsParallel().ForAll(x => {
+                    throw new InvalidOperationException();
+                });
+                Assert.True(false); // fail.
+            }
+            catch(AggregateException aggEx) {
+                Assert.True(aggEx.InnerExceptions.Count > 1);
+                return;
+            }
+            Assert.True(false); // fail : should have caught an AggregateException.
+        }
+
         /// <summary>
         /// The async / await pattern allows you to avoid "callback hell" by
         /// providing language level support for asynchronous operations.
