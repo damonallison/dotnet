@@ -301,7 +301,6 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             // All exceptions are gathered into an AggregateException.
             try {
                 Parallel.For(0, count, x => {
-                    Console.WriteLine($"Iteration ({x})");
                     throw new NotImplementedException();
                 });
             }

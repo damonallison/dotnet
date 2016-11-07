@@ -1,6 +1,8 @@
 using DamonAllison.CSharpTests.Objects;
 using System.Collections.Generic;
 using Xunit;
+using System.Collections.Concurrent;
+using System.Collections.Immutable;
 
 namespace DamonAllison.CSharpTests.BCL {
 
@@ -153,6 +155,42 @@ namespace DamonAllison.CSharpTests.BCL {
                 }
                 i++;
             }
+        }
+
+        /// <summary>
+        /// Concurrent collection classes support thread-safe access by producers
+        /// (writers) and consumers (readers). Concurrent collections typically implement
+        /// <c>IProducerConsumerCollection<T></c>.
+        ///
+        /// <seealso cref="System.Collections.Concurrent.IProducerConsumerCollection<T>" />
+        /// </summary>
+        [Fact]
+        public void ConcurrentCollections() {
+
+            // ConcurrentBag<T> is a thread-safe unordered collection.
+            ConcurrentBag<int> bag = new ConcurrentBag<int>();
+            bag.Add(1);
+            IProducerConsumerCollection<int> bc;
+
+            ConcurrentDictionary<int, string> dict = new ConcurrentDictionary<int, string>() {
+                [10] = "test"
+            };
+        }
+
+        /// <summary>
+        /// Immutable collections are by definition thread safe and
+        /// preferred when accessing collections from multiple threads.
+        /// </summary>
+        [Fact]
+        public void ImmutableCollections() {
+
+            // Most all collection classes have .ToImmutable...() functions for
+            // creating immutable equivalents.
+            IImmutableList<int> il = new List<int> { 1, 2, 3 }.ToImmutableList();
+
+            IImmutableDictionary<int, string> id = new Dictionary<int, string> {
+                [10] = "test"
+            }.ToImmutableDictionary();
         }
     }
 }

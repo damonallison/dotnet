@@ -7,7 +7,7 @@
 ## Reading
 
 * Essential C#.
-    * Start @ 831 - Synchronization
+    * Start @ 888 - Common Language Infrastructure
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem

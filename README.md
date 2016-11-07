@@ -60,10 +60,17 @@ Assume that Microsoft continues with this OSS track. What advantages will they h
 
 > Code has a high productivity code editor, when combined with programming language services, gives you the power of an IDE with the speed of a text editor.
 
+## Common Language Infrastructure
 
+The common language infrastructure is the set of components required for a high level language to execute.
 
-## Threading notes
+* CLI : Common Language Infrastructure. The specifications for CIL and runtime. Pieces of the CLI include:
+  * Virtual Execution System (runtime).
+  * Common Intermediate Language (CIL).
+  * Common Type System.
+  * Common Language Specification.
+  * BCL (framework).
 
-* Don't synchronize on `this`, `typeof(Class)`, or `string`. Other classes could use the same lock as you. Strings are interned, so others could lock using the same object.
-* `volatile` tells the compiler not to optimize the read/write to the field. Avoid `volatile` and use `lock` unless you are absolutely sure you know what you are doing.
-
+* AppDomains are logical "processes" which execute within the same physical HW process.
+  * AppDomains were created because physical processes are deemed expensive.
+  * Communication between app domains requires cross-process like marshalling and communication mechanisms.

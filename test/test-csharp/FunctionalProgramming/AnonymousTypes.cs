@@ -26,7 +26,7 @@ namespace DamonAllison.CSharpTests.FunctionalProgramming
     /// Dictionary<string, List<Account>> d = GetAccounts();
     /// </code>
     ///
-    /// Var does *not* mean weakly typed (like void* in C). `var` means
+    /// `var` does *not* mean weakly typed (like void* in C). `var` means
     /// the type will be assigned by the compiler. The variable is strongly
     /// typed, is type checked at runtime, and the type cannot change.
     ///
