@@ -1,5 +1,5 @@
 namespace TodoApi.Models {
-    public class TodoItem 
+    public class TodoItem
     {
         public string Key { get; set; }
         public string Name { get; set; }

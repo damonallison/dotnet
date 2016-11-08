@@ -1,20 +1,20 @@
 # TODO
 
+* .NET core reboot.
+* Restructure tests into a dedicated project (remove the other nonsense).
+
 ## Suggestions
 
 * `dotnet test` verbose output.
+* A way to reformat a comment block with a max line length of 80. (Provided via an extension?)
 
 ## Reading
-
-* Essential C#.
-    * Start @ 888 - Common Language Infrastructure
 
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
     > "Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware.
 * Think : With MS OSS's strategy, what are the technical and community differences between .NET and Java?
-* A way to reformat a comment block with a max line length of 80.
 
 ## Projects
 
@@ -29,28 +29,20 @@
 
 * C# documentation comment syntax / generation.
 * Assertions, logging output, and debugging diagnostics.
-* Delegates / lambdas.
 * Attributes
 
 ## BCL
 
-* TPL
-    * Threads : how are they implemented?
-* async / await
-* IEnumerable / LINQ
 * Core interface types IEquatable, IFormattable
 * System.Generic.Collections
-* Serialization (`ISerializable` and `[Serializable]`)
+* Serialization (`ISerializable` and `[Serializable]`) - look into JSON.NET.
 * Rx
 * Data access.
-    * What happened with C#'s LINQ to SQL syntax (`select` in the language).
-    * Is there heavy use of ORMs?
-
+    * Is there heavy use of ORMs? Entity framework?
 * Object equality : Find a decent library to generate proper hash code / equality logic.
 
 ## Unit testing
 
-* Determine how to debug all .NET tests (not just a single test).
 * [xUnit](https://xunit.github.io/)
     * Does `xUnit` have Xcode's concept of expectations / async execution?
     * Read up on xUnit `Fact` and `Theory` attributes.
@@ -60,7 +52,6 @@
 ## Tooling
 
 * Generate documentation comments from source code.
-* Remove whitespace on save (extension?)
 * Git integration.
 * How to use VS Code as a git merge tool?
 
@@ -69,6 +60,3 @@
 * Resource groups.
 * How to require SSL?
 * Logging / diagnostics.
-*
-
-

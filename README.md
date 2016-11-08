@@ -2,7 +2,7 @@
 
 This repo contains research into the "new .NET" - .NET core, Visual Studio Code, and Microsoft's new OSS focused ecosystem.
 
-Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to embracing the spirit of OSS.
+Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to embracing the spirit of OSS. From a development model, they are decades behind Java. From a language perspective, C# is slightly more advanced than Java (lambdas, linq, TPL async / await), but still C# remains mostly a Java clone.
 
 * Development done in the open, on github.
 * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain.
@@ -56,11 +56,14 @@ VS Code, while in many respects is a "me too" with other non-bloated source code
 
 Assume that Microsoft continues with this OSS track. What advantages will they have over the OSS community? What advantage does Google, Apple, Amazon, or Facebook have over the OSS community? Why would engineers want to program for Windows? For Exchange? For SQL Server? Why would I ever want to program with Microsoft's tools?
 
-> Unlike traditional IDEs with everything but the kitchen sink, you can tune your installation to the development technologies you care about.
-
+* VS Code takes the minimalist route.
+> "Unlike traditional IDEs with everything but the kitchen sink, you can tune your installation to the development technologies you care about."
 > Code has a high productivity code editor, when combined with programming language services, gives you the power of an IDE with the speed of a text editor.
 
+
 ## Common Language Infrastructure
+
+From Essential C# 6.0 - notes on the CLI.
 
 The common language infrastructure is the set of components required for a high level language to execute.
 
@@ -68,9 +71,26 @@ The common language infrastructure is the set of components required for a high 
   * Virtual Execution System (runtime).
   * Common Intermediate Language (CIL).
   * Common Type System.
+    * Defines how value types and object types are laid out in memory.
   * Common Language Specification.
+    * A subset of the CTS which you must adhere to in order to use a type from multiple source languages.
+    * Add an assembly attribute of `System.CLSCompliant` and the compiler will warn on CLS violations.
   * BCL (framework).
 
 * AppDomains are logical "processes" which execute within the same physical HW process.
   * AppDomains were created because physical processes are deemed expensive.
   * Communication between app domains requires cross-process like marshalling and communication mechanisms.
+
+* Assemblies
+  * Assemblies are the smallest unit which can be versioned.
+  * Assemblies reference other assemblies. References are stored in the manifest.
+  * Assemblies can be composed from multiple modules (using al.exe). However VS.NET does not recognize multi-module assemblies.
+  * Do *NOT* store assemblies into the Global Assembly Cache (GAC). Entire applications should be contained in a single directory.
+
+* What types / namespaces make up the BCL?
+  * What is the landscape for .NET Core projects?
+
+* How do you read an assembly's manifest?
+  * How does the assembly loader work?
+  * How does NuGet work? (Read the source code)
+  * How are assemblies resolved?
