@@ -1,18 +1,5 @@
 # Visual Studio Code
 
-## .NET Tutorial
-
-```
-The standard folder structure (see `global.json`)
-  src/
-  test/
-```
-
-* `dotnet new -t lib` - create a new library project (in the dir you want to create the lib (`cd src/library`)
-* `dotnet new -t xunittest` - create a new `xunittest` test project. 
-* `dotnet restore` - restore dependencies
-* `dotnet new` - create a new console app
-
 #### Helpful Shortcut Keys
 
 * Cmd-B : Toggle left bar.
