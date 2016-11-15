@@ -9,6 +9,29 @@ Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to e
 * Creating linux ports of Server products (e.g., SQL Server).
 * OSS, multi-platform, command line based by default.
 
+## Questions
+
+* What is the vibe around .NET Core from within Microsoft?
+* What is the strategy around .NET Core from within Microsoft?
+    * Why OSS? VS Code on Electron?
+        * Did they realize engineer mindshare can't stand Win32?
+* When was .NET Core released and what is it's roadmap?
+
+## Why .NET Core?
+
+* Legacy .NET was straddled with Windows, IIS, and other obsolete technologies.
+* Legacy C# applications required machine level installed .NET runtimes, IIS for web apps.
+* The .NET BCL included obsolete, proprietary libraries and Windows platform hooks nobody needed for web apps.
+* Was built for Windows desktop applications, which are obsolete.
+
+#### .NET Core
+
+* Containerization. The .NET Core runtime can be deployed side by side with your application.
+* Smaller, web focused BCL. Ditches native development (smart).
+* OSS, multi-platform, command line based.
+
+
+
 ## Links
 
 * [Getting started with .NET Core](https://docs.microsoft.com/en-us/dotnet/articles/core/index)
