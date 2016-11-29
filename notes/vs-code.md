@@ -6,7 +6,7 @@
 * Opt-Z : Toggle word wrap
 * Ctrl-_ : Jump to previous point.
 * Ctrl-Shift-_ : Jump to next point.
-* Ctrl-Cmd-Shift--> : Extend highlight to the next scope.
+* Ctrl-Cmd-Shift--> : Extend highlight to the next scope. (<- collapse highlight)
 * Alt-Shift (drag mouse) : Column / box selection.
 
 ###### Code

@@ -14,7 +14,8 @@ Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to e
 * What is the vibe around .NET Core from within Microsoft?
 * What is the strategy around .NET Core from within Microsoft?
     * Why OSS? VS Code on Electron?
-        * Did they realize engineer mindshare can't stand Win32?
+      * Shift to cloud?
+      * Did they realize engineer mindshare can't stand Win32?
 * When was .NET Core released and what is it's roadmap?
 
 ## Why .NET Core?
@@ -26,8 +27,10 @@ Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to e
 
 #### .NET Core
 
-* Containerization. The .NET Core runtime can be deployed side by side with your application.
+* Multi-platform. 
+* Containerization. The .NET Core runtime can be deployed side by side with your application. 
 * Smaller, web focused BCL. Ditches native development (smart).
+* Modular. Only download / distribute the packages you use.
 * OSS, multi-platform, command line based.
 
 
@@ -117,3 +120,16 @@ The common language infrastructure is the set of components required for a high 
   * How does the assembly loader work?
   * How does NuGet work? (Read the source code)
   * How are assemblies resolved?
+
+## .NET Core Tutorial
+
+```
+The standard folder structure (see `global.json`)
+  src/
+  test/
+```
+
+* `dotnet new -t lib` - create a new library project (in the dir you want to create the lib (`cd src/library`)
+* `dotnet new -t xunittest` - create a new `xunittest` test project.
+* `dotnet restore` - restore dependencies
+* `dotnet new` - create a new console app

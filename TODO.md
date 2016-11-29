@@ -1,8 +1,5 @@
 # TODO
 
-* .NET core reboot.
-* Restructure tests into a dedicated project (remove the other nonsense).
-
 ## Suggestions
 
 * `dotnet test` verbose output.
@@ -12,12 +9,10 @@
 
 ### .NET Core
 
-
 * Read : [Visual Studio Code Documentation](https://code.visualstudio.com/Docs)
 * Blog post : .NET ecosystem
     * https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/
     > "Our lab runs show that ASP.NET Core is faster than some of our industry peers. We see throughput that is 8x better than Node.js and almost 3x better than Go, on the same hardware.
-* Think : With MS OSS's strategy, what are the technical and community differences between .NET and Java?
 
 ## Projects
 
@@ -57,9 +52,3 @@
 * Generate documentation comments from source code.
 * Git integration.
 * How to use VS Code as a git merge tool?
-
-## Azure
-
-* Resource groups.
-* How to require SSL?
-* Logging / diagnostics.
