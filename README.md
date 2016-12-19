@@ -4,6 +4,8 @@ This repo contains research into the "new .NET" - .NET core, Visual Studio Code,
 
 Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to embracing the spirit of OSS. From a development model, they are decades behind Java. From a language perspective, C# is slightly more advanced than Java (lambdas, linq, TPL async / await), but still C# remains mostly a Java clone.
 
+The changes made with what I'm calling this "new .NET" initiative revolve around opening up the ecosystem to better compete for engineering mindshare.
+
 * Development done in the open, on github.
 * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain.
 * Creating linux ports of Server products (e.g., SQL Server).
@@ -17,10 +19,14 @@ Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to e
       * Shift to cloud?
       * Did they realize engineer mindshare can't stand Win32?
 * When was .NET Core released and what is it's roadmap?
+  * Released June 27, 2016.
+  * What is the current status of .NET Core?
 
 ## Why .NET Core?
 
 * Legacy .NET was straddled with Windows, IIS, and other obsolete technologies.
+* Requests from customers to run web workloads on linux.
+* Industry pressure. All web frameworks are open sourced. MS was losing hardcore engineer mindshare.
 * Legacy C# applications required machine level installed .NET runtimes, IIS for web apps.
 * The .NET BCL included obsolete, proprietary libraries and Windows platform hooks nobody needed for web apps.
 * Was built for Windows desktop applications, which are obsolete.
@@ -37,11 +43,16 @@ Microsoft's culture has shifted from the 90's "embrace, extend, extinguish" to e
 
 ## Links
 
+* [Announcing .NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/)
+
+  * The initial introduction to .NET Core. Includes the history, story, goals, the platform landscape, and creating hello world.
+
+  * > This is the biggest transformation of .NET since its inception and will define .NET for the next decade. We’ve rebuilt the foundation of .NET to be targeted at the needs of today’s world: highly distributed cloud applications, micro services and containers.
+
+
 * [Getting started with .NET Core](https://docs.microsoft.com/en-us/dotnet/articles/core/index)
   * High level overview of the pieces and architecture of .NET core.
 
-* [Announcing .NET Core 1.0](https://blogs.msdn.microsoft.com/dotnet/2016/06/27/announcing-net-core-1-0/)
-  * The initial introduction to .NET Core. Includes the history, story, goals, the platform landscape, and creating hello world.
 
 * [Getting started with .NET Core on macOS](https://docs.microsoft.com/en-us/dotnet/articles/core/tutorials/using-on-macos)
   * Tutorial on creating a project with a main project, library, and unit tests.
