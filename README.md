@@ -10,6 +10,8 @@ This repo contains research into Microsoft's *new* OSS focused [.NET](https://gi
 
 Microsoft, under Nadella, has shifted its culture from the 90's "embrace, extend, extinguish" to embracing OSS. From a development model, they are decades behind Java. From a language perspective, C# is slightly more advanced than Java (lambdas, linq, TPL async / await), but still C# remains mostly a Java clone.
 
+The changes made with what I'm calling this "new .NET" initiative revolve around opening up the ecosystem to better compete for engineering mindshare.
+
 * Development done in the open, on github.
 * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain.
 * Creating linux ports of Server products (e.g., SQL Server).
