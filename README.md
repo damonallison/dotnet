@@ -1,16 +1,16 @@
 # .NET
 
-This repo contains research into Microsoft's *new* OSS focused [.NET](https://github.com/Microsoft/dotnet) strategy.
+This repo contains research into Microsoft's *new* [.NET](https://github.com/Microsoft/dotnet) strategy.
 
-* .NET core
+* .NET Core
 * Visual Studio Code
 * Microsoft's OSS focus
 
 ## The "new" .NET
 
-Microsoft, under Nadella, has shifted its culture from the 90's "embrace, extend, extinguish" to embracing OSS. From a development model, they are decades behind Java. From a language perspective, C# is slightly more advanced than Java (lambdas, linq, TPL async / await), but still C# remains mostly a Java clone.
+Microsoft, under Nadella, has shifted its culture from the 90's "embrace, extend, extinguish" to embracing OSS. From a development model, it is similar to Java. Platform agnostic, VM based, Open Source. From a language perspective, C# and the CLR has traditionally been ahead of Java (lambdas, linq, TPL async / await).
 
-The changes made with what I'm calling this "new .NET" initiative revolve around opening up the ecosystem to better compete for engineering mindshare.
+At some point, perhaps under the direction of Nadella, Microsoft realized Win32 is a dead end. They pivoted to being a cloud provider with Azure. They opened up their developer tools to all platforms. Thus, .NET Core. The development model moved from the cathedral to the bazaar.
 
 * Development done in the open, on github.
 * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain.
@@ -27,7 +27,7 @@ The changes made with what I'm calling this "new .NET" initiative revolve around
 ### .NET Core Major Features
 
 * Cross platform
-* Containerization. The .NET Core runtime can be deployed side by side with your application. 
+* Containerization. The .NET Core runtime can be deployed side by side with your application.
 * Smaller, web focused BCL. Ditches native development (smart).
 * Modular. Only download / distribute the packages you use.
 * OSS, multi-platform, command line based.
@@ -38,6 +38,15 @@ The changes made with what I'm calling this "new .NET" initiative revolve around
 * [.NET Documentation](https://docs.microsoft.com/en-us/dotnet/)
 
 ## .NET Core
+
+### Installation
+
+Install it thru `brew`.
+
+```
+$ brew cask install dotnet-sdk
+$ brew cask install dotnet
+```
 
 ### Overview
 
@@ -86,7 +95,7 @@ All libaries you write should target .NET Standard for maximum compatibility.
 
 ## Visual Studio Code
 
-Visual Studio code is mostly a "me too" editor in a similar vain to Atom, Sublime, and other package based text editors. With a default install, it's a minimal core editor. The power of VS Code, like Atom and Sublime, comes via extensions. Extensions add large feature sets to the core - like language support, debugging, text formatting, theming, everything. Extensions are critical in VS Code. For example, you can't even program C# in VS Code without a C# extension. 
+Visual Studio code is mostly a "me too" editor in a similar vain to Atom, Sublime, and other package based text editors. With a default install, it's a minimal core editor. The power of VS Code, like Atom and Sublime, comes via extensions. Extensions add large feature sets to the core - like language support, debugging, text formatting, theming, everything. Extensions are critical in VS Code. For example, you can't even program C# in VS Code without a C# extension.
 
 By requiring extensions for everything, it allows engineers to tailor the editor solely to the feature set they require without having to carry around anything they don't. While you could selectively pick the features Visual Studio included in it's install, VS Code relies completely on extensions and makes it trivial to add / remove and update extensions without Visual Studio's clumsy installer or heavy add-ins.
 
@@ -107,6 +116,12 @@ VS Code, while in many respects is a "me too" with other non-bloated source code
 ## .NET Core Tutorial Notes
 
 ```
+
+# Create a new console application in a directory called MyApp
+
+$ dotnet new console -o MyApp
+
+
 The standard folder structure (see `global.json`)
   src/
   test/
