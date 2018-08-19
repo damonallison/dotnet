@@ -9,8 +9,7 @@ This repo contains research into Microsoft's *new* [.NET](https://github.com/Mic
 ## The "new" .NET
 
 Microsoft, under Nadella, has shifted its culture from the 90's "embrace, extend, extinguish" to embracing OSS. From a development model, it is similar to Java. Platform agnostic, VM based, Open Source. From a language perspective, C# and the CLR has traditionally been ahead of Java (lambdas, linq, TPL async / await).
-
-At some point, perhaps under the direction of Nadella, Microsoft realized Win32 is a dead end. They pivoted to being a cloud provider with Azure. They opened up their developer tools to all platforms. Thus, .NET Core. The development model moved from the cathedral to the bazaar.
+At some point, perhaps under the direction of Nadella, Microsoft realized Win32 is a dead end. They pivoted from Ballmer's "Windows Everywhere" to "Cloud and AI everywhere". They opened up their developer tools to all platforms. Thus, .NET Core. The development model moved from the cathedral to the bazaar.
 
 * Development done in the open, on github.
 * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain.
@@ -52,7 +51,7 @@ $ brew cask install dotnet
 
 .NET Core is a cross platform implementation of .NET. .NET Core includes a .NET Runtime, framework libraries, and a `dotnet` CLI capable of building / running .NET console and web (ASP.NET) applications.
 
-Because of it's cross platform nature, Microsoft's Win32 proprietary frameworks and libraries (Winforms, registry, security model, WPF, WCF, IIS, etc) are not part of .NET Core. Omitting these lightens up .NET Core's footprint.
+Because of it's cross platform nature, Microsoft's Win32 proprietary frameworks and libraries (Winforms, registry, security model, WPF, WCF, IIS, etc) are not part of .NET Core. Other than enabling .NET on multiple OSs, omitting these proprietary win32 hooks lightens up .NET Core's footprint.
 
 Most of .NET Core is shared code. There are platform specific implementations of lower level features (I/O, kqueue), as necessary. .NET Core abstracts away the underlying OS.
 
@@ -64,9 +63,10 @@ Web and server applications are the primary use case with .NET core. Microsoft h
 
 CoreCLR contains the runtime and low level primitives (`System.Object`) required for .NET. You do not use CoreCLR directly. CoreCLR is exposed by CoreFX. CoreFX is the `BCL`. It is included with every project.
 
-CoreCLR is the set of components required for a high level language to execute.
+CoreCLR is the set of components required for a high level language to execute. CoreCLR includes:
 
-* CLI : Common Language Infrastructure. The specifications for CIL and runtime. Pieces of the CLI include:
+* CLI : Common Language Infrastructure.
+  * The specifications for CIL and runtime.
   * Virtual Execution System (runtime).
   * Common Intermediate Language (CIL).
   * Common Type System.
@@ -111,11 +111,9 @@ Equally interesting is the underlying technology in which VS Code is developed i
 
 VS Code, while in many respects is a "me too" with other non-bloated source code editors like Atom, it is the best .NET IDE on the market today. More important, VS Code signals the underlying OSS focused culture is sweeping over Microsoft.
 
-
-
 ## .NET Core Tutorial Notes
 
-```
+```bash
 
 # Create a new console application in a directory called MyApp
 
