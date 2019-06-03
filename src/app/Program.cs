@@ -2,7 +2,11 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Dotnet.Debugging;
-using DamonAllison.Library;
+
+//
+// TODO: How to link libraries?
+//
+// using DamonAllison.Library;
 
 /// <summary>
 /// TODO
@@ -22,12 +26,12 @@ namespace Dotnet
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine($"2 + 2 = {Calculator.Add(2, 2)}");
-            return;
-            
+            // Console.WriteLine($"2 + 2 = {Calculator.Add(2, 2)}");
+            // return;
+
             EnvironmentDebugger.PrintEnvironment();
             EnvironmentDebugger.PrintFundamentalTypes();
-            
+
             var t = new Tasks();
 
             Debug.WriteLine("Add task starting");
@@ -36,7 +40,7 @@ namespace Dotnet
 
             Debug.Assert(addTask.IsCompleted);
             Debug.Assert(!addTask.IsFaulted);
-            
+
             Console.WriteLine($"Hello World : {addTask.Result}");
         }
 
@@ -45,10 +49,10 @@ namespace Dotnet
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <returns></returns>   
+        /// <returns></returns>
         private static int Test(int x, int y) {
             return x + y;
         }
-        
+
     }
 }

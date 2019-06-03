@@ -8,8 +8,17 @@ This repo contains research into Microsoft's *new* [.NET](https://github.com/Mic
 
 ## The "new" .NET
 
-Microsoft, under Nadella, has shifted its culture from the 90's "embrace, extend, extinguish" to embracing OSS. From a development model, it is similar to Java. Platform agnostic, VM based, Open Source. From a language perspective, C# and the CLR has traditionally been ahead of Java (lambdas, linq, TPL async / await).
-At some point, perhaps under the direction of Nadella, Microsoft realized Win32 is a dead end. They pivoted from Ballmer's "Windows Everywhere" to "Cloud and AI everywhere". They opened up their developer tools to all platforms. Thus, .NET Core. The development model moved from the cathedral to the bazaar.
+Microsoft, under Nadella, has shifted its culture from the 90's "embrace,
+extend, extinguish" to embracing OSS. From a development model, it is similar to
+Java. Platform agnostic, VM based, Open Source. From a language perspective, C#
+and the CLR has traditionally been ahead of Java (lambdas, linq, TPL async /
+await).
+
+At some point, perhaps under the direction of Nadella, Microsoft realized Win32
+is a dead end. They pivoted from Ballmer's "Windows Everywhere" to "Cloud and AI
+everywhere". They opened up their developer tools to all platforms. Thus, .NET
+Core and Visual Studio Codea. The development model moved from the cathedral to
+the bazaar.
 
 * Development done in the open, on github.
 * Minimalist tools (VS Code) based on Electron, not "WPF" or another heavy MS UI toolchain.
@@ -18,9 +27,12 @@ At some point, perhaps under the direction of Nadella, Microsoft realized Win32 
 
 ## Why .NET Core?
 
-* Legacy .NET was straddled with Windows, IIS, Active Directory, and other obsolete technologies.
-* Legacy C# applications required machine level installed .NET runtimes, IIS for web apps.
-* The .NET BCL included obsolete, proprietary libraries and Windows platform hooks (WCF, WPF) nobody needs for web apps.
+* Legacy .NET was straddled with Windows, IIS, Active Directory, and other
+  obsolete technologies.
+* Legacy C# applications required machine level installed .NET runtimes, IIS for
+  web apps.
+* The .NET BCL included obsolete, proprietary libraries and Windows platform
+  hooks (WCF, WPF) nobody needs for web apps.
 * Was built for Windows desktop applications, which are obsolete.
 
 ### .NET Core Major Features
@@ -49,19 +61,30 @@ $ brew cask install dotnet
 
 ### Overview
 
-.NET Core is a cross platform implementation of .NET. .NET Core includes a .NET Runtime, framework libraries, and a `dotnet` CLI capable of building / running .NET console and web (ASP.NET) applications.
+.NET Core is a cross platform implementation of .NET. .NET Core includes a .NET
+Runtime, framework libraries, and a `dotnet` CLI capable of building / running
+.NET console and web (ASP.NET) applications.
 
-Because of it's cross platform nature, Microsoft's Win32 proprietary frameworks and libraries (Winforms, registry, security model, WPF, WCF, IIS, etc) are not part of .NET Core. Other than enabling .NET on multiple OSs, omitting these proprietary win32 hooks lightens up .NET Core's footprint.
 
-Most of .NET Core is shared code. There are platform specific implementations of lower level features (I/O, kqueue), as necessary. .NET Core abstracts away the underlying OS.
+Because of it's cross platform nature, Microsoft's Win32 proprietary frameworks
+and libraries (Winforms, registry, security model, WPF, WCF, IIS, etc) are not
+part of .NET Core. Other than enabling .NET on multiple OSs, omitting these
+proprietary win32 hooks lightens up .NET Core's footprint.
 
-Web and server applications are the primary use case with .NET core. Microsoft has recognized that `native` client development is obsolete.
+Most of .NET Core is shared code. There are platform specific implementations of
+lower level features (I/O, kqueue), as necessary. .NET Core abstracts away the
+underlying OS.
+
+Web and server applications are the primary use case with .NET core. Microsoft
+has recognized that `native` client development is obsolete.
 
 ### .NET Core Projects
 
 #### [CoreCLR]() && [CoreFX]()
 
-CoreCLR contains the runtime and low level primitives (`System.Object`) required for .NET. You do not use CoreCLR directly. CoreCLR is exposed by CoreFX. CoreFX is the `BCL`. It is included with every project.
+CoreCLR contains the runtime and low level primitives (`System.Object`) required
+for .NET. You do not use CoreCLR directly. CoreCLR is exposed by CoreFX. CoreFX
+is the `BCL`. It is included with every project.
 
 CoreCLR is the set of components required for a high level language to execute. CoreCLR includes:
 
@@ -89,7 +112,9 @@ CoreCLR is the set of components required for a high level language to execute. 
 
 #### .NET Standard
 
-The .NET Standard is a set of libraries and classes all implemenations of .NET must support. By targeting .NET Standard, you can be certain your library will work with any .NET Standard compliant implementation.
+The .NET Standard is a set of libraries and classes all implemenations of .NET
+must support. By targeting .NET Standard, you can be certain your library will
+work with any .NET Standard compliant implementation.
 
 All libaries you write should target .NET Standard for maximum compatibility.
 
