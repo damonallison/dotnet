@@ -32,7 +32,16 @@
 ## BCL
 
 * Core interface types IEquatable, IFormattable
-* System.Generic.Collections
+* System.Collections.Generic
+* System.Configurationj
+* System.Data (high level classes)
+* System,IO
+* System.Linq
+* System.Reflection
+* System.Threading
+* System.Threading.Tasks
+
+
 * Serialization (`ISerializable` and `[Serializable]`) - look into JSON.NET.
 * Rx
 * Data access.
