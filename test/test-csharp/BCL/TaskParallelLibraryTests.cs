@@ -33,7 +33,7 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
     ///   of asynchronous functions. async / await allows you to program
     ///   using asynchronous methods as if they were synchronous. Handling
     ///   results, thread context switching, and exception handling are all
-    ///   handled by the compiler and TAP framekwork.
+    ///   handled by the compiler and the TAP framework.
     ///
     /// TAP was created to address key problems with asynchronous programming:
     /// * Allow long running activities to happen without blocking the main thread.
@@ -130,10 +130,21 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
                 Assert.Equal(1, t.Result);
             }
             catch (AggregateException aggEx) {
+                //
                 // Tasks will *always* throw an Aggregate exception.
+                //
                 // To determine what exception(s) were thrown in the
                 // task, you must examine the .InnerExceptions property.
+                //
+                // Always examine the inner exception and either handle or
+                // rethrow based on the inner exception type.
+                //
                 Assert.Equal(1, aggEx.InnerExceptions.Count);
+                foreach (Exception ex in aggEx.InnerExceptions) {
+                    if (!(ex is InvalidOperationException)) {
+                        Assert.Fail($"Unexpected exception: {ex.GetType().Name}");
+                    }
+                }
                 Assert.Equal(aggEx.InnerExceptions.ToList()[0].GetType(), typeof(InvalidOperationException));
             }
 
