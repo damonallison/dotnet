@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,13 +10,6 @@ using Xunit;
 namespace DamonAllison.CSharpTests.BCL.Multithreading
 {
     /// <summary>
-    ///
-    /// Task Based Asychronous Programming
-    /// https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-    ///
-    /// The Task-based Asychronous Pattern (TAP) is the recommended asychronous
-    /// design pattern for new development.
-    ///
     /// .NET 4.0 introduced the "Parallel Extensions" library in .NET 4.0.
     /// Parallel Extensions includes:
     ///
@@ -36,9 +28,7 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
     /// programming.
     ///
     /// TAP includes:
-    ///
     /// * Task : an object representing an asynchronous operation.
-    ///
     /// * async / await : C# language extensions which streamlines the use
     ///   of asynchronous functions. async / await allows you to program
     ///   using asynchronous methods as if they were synchronous. Handling
@@ -46,7 +36,6 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
     ///   handled by the compiler and the TAP framework.
     ///
     /// TAP was created to address key problems with asynchronous programming:
-    ///
     /// * Allow long running activities to happen without blocking the main thread.
     /// * Optimize the use of threads (TaskScheduler).
     /// * Handle thread synchronization seamlessly.
@@ -64,13 +53,6 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
     /// You generally do not need to create custom TaskSchedulers or set custom
     /// SynchronizationContext(s) on threads, simply understand the TaskScheduler
     /// and SynchronizationContext you are using.
-    ///
-    /// TAP Guidelines
-    ///
-    /// * TAP methods should *not* USE <c>out</c> or <c>ref</c> parameters. The
-    ///   TAP method should return as part of the TResult returned by
-    ///   <c>Task<TResult></c>.
-    ///
     /// </summary>
     public class TaskParallelLibraryTests
     {
@@ -99,7 +81,8 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             Assert.True(bag.ToList().Contains(1));
             Assert.Equal(1, bag.Count);
 
-            // Proves the task really took 100 ms. Assert.True(DateTime.Now.AddMilliseconds(-100).Ticks > start.Ticks);
+            // Proves the task really took 100 ms.
+            Assert.True(DateTime.Now.AddMilliseconds(-100).Ticks > start.Ticks);
 
             // Run a func.
             Task<int> result = Task.Run<int>(async () => {
@@ -119,27 +102,6 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             Assert.Equal(3, bag.Count);
         }
 
-
-        /// <summary>
-        /// Tasks, by default, will execute on a background thread pool thread.
-        ///
-        /// When the "await" concludes, it is handed off to another thread to
-        /// continue.
-        /// </summary>
-        [Fact]
-        public async void TaskThread() {
-
-            int? duringThread = null;
-            Assert.False(duringThread.HasValue);
-
-            Func<int, int, int> calculate = (int x, int y) => {
-                Console.WriteLine($"During thread: {Thread.CurrentThread.ManagedThreadId}");
-                return x + y;
-            };
-            Console.WriteLine($"Before thread: {Thread.CurrentThread.ManagedThreadId}");
-            int result = await Task.Run(() => calculate.Invoke(2, 2));
-            Console.WriteLine($"After thread: {Thread.CurrentThread.ManagedThreadId}");
-        }
         /// <summary>
         /// Exceptions thrown in tasks will be caught and associated with the task
         /// by the task scheduler.
