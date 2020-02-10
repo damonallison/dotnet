@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Xunit;
 
-namespace DamonAllison.CSharpTests.BCL.Multithreading
+namespace DamonAllison.CSharpTests.BCL
 {
     /// <summary>
     /// .NET 4.0 introduced the "Parallel Extensions" library in .NET 4.0.
@@ -82,7 +82,7 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
             Assert.Equal(1, bag.Count);
 
             // Proves the task really took 100 ms.
-            Assert.True(DateTime.Now.AddMilliseconds(-100).Ticks > start.Ticks);
+            Assert.True(DateTime.Now.AddMilliseconds(-100).Ticks >= start.Ticks);
 
             // Run a func.
             Task<int> result = Task.Run<int>(async () => {
@@ -190,14 +190,21 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
 
             bool tokenCancelled = false;
 
-
-            // Tokens can be monitored for cancellation. This would be nice
+            //
+            // Tokens can be monitored for cancellation.
+            //
             ts.Token.Register(() => {
                 tokenCancelled = true;
             });
 
+            //
+            // Let the task run for a while.
+            //
             Thread.Sleep(200);
 
+            //
+            // Cancel the token source.
+            //
             ts.Cancel();
             t.Wait();
 
@@ -239,7 +246,7 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
         /// <summary>
         /// The result of an "await" call can be used as a normal return value.
         ///
-        /// There are restrictions on when you can use an await's return value.
+        /// There are restrictions on when you can use an await's return value. gzys
         /// The type being returned must support a "GetAwaiter". Task<int>,
         /// used below, supports .GetAwaiter(), allowing you to use the return
         /// value from 'async'.
@@ -316,7 +323,7 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
                 });
             }
             catch (AggregateException aggEx) {
-                Assert.True(aggEx.InnerExceptions.Count > 1);
+                Assert.True(aggEx.InnerExceptions.Count > 0);
             }
         }
 
@@ -343,18 +350,27 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
 
             // By default, Parallel.For is synchronous. Wrap it up in a task
             // to fire it off async.
-            Task.Run(() => {
+
+            Task t = Task.Factory.StartNew(() => {
                 Parallel.For(0, 1000, o, x => {
                     Interlocked.Increment(ref iterations);
                     Task.Delay(x).Wait();
                 });
-            });
+            }, ts.Token);
 
             Task.Delay(100).Wait();
             ts.Cancel();
 
+            try {
+                t.Wait();
+            } catch (AggregateException aggEx) {
+                Assert.IsType<TaskCanceledException>(aggEx.InnerException);
+            }
+
             Assert.InRange(iterations, 1, 500);
             Assert.True(cancelled);
+            Assert.True(t.IsCanceled);
+            Assert.True(t.Status == TaskStatus.Canceled);
         }
 
         /// <summary>
@@ -410,10 +426,8 @@ namespace DamonAllison.CSharpTests.BCL.Multithreading
                 l.AsParallel().ForAll(x => {
                     throw new InvalidOperationException();
                 });
-                Assert.True(false); // fail.
             }
-            catch(AggregateException aggEx) {
-                Assert.True(aggEx.InnerExceptions.Count > 1);
+            catch(AggregateException) {
                 return;
             }
             Assert.True(false); // fail : should have caught an AggregateException.
